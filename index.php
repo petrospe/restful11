@@ -1,6 +1,8 @@
 <?php
 	require 'vendor/autoload.php';
 
+	\Slim\Slim::registerAutoloader();
+	
 	$app = new \Slim\slim();
 
 	$app->get('/',function(){
