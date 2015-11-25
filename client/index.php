@@ -58,7 +58,7 @@
 				type: "DELETE",
 				async: false,
 				success:function(data){
-					confirm('Delete '+d+' ?');
+					alert('Delete '+d+' ?');
 				}
 			})
 		}
