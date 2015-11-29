@@ -19,6 +19,17 @@
 								<th>Email</th>
 								<th>Action</th>
 							</tr>
+							<tr>
+								<form id="insertuser" method="POST" action="#">
+								<th></th>
+								<th><input type="text" class="form-control" name="fname" placeholder="Name"></th>
+								<th><input type="text" class="form-control" name="lname" placeholder="Last name"></th>
+								<th><input type="text" class="form-control" name="title" placeholder="Title"></th>
+								<th><input type="text" class="form-control" name="username" placeholder="User name"><input type="password" class="form-control" name="password" placeholder="Password"></th>
+								<th><input type="text" class="form-control" name="email" placeholder="email"></th>
+								<th><button type="submit" name="usersubmit" class="btn btn-default">Insert</button></th>
+								</form>
+							</tr>
 						</thead>
 						<tbody id="userstable"></tbody>
 					</table>
@@ -53,15 +64,24 @@
 		function DeleteData(d) {
 			//confirm('Delete '+d+' ?')
 			var _url = "http://localhost/restful11/index.php/delete/"+d;
-			$.ajax({
+			jQuery.ajax({
 				url: _url,
 				type: "DELETE",
 				async: false,
 				success:function(data){
 					alert('Delete '+d+' ?');
-				}
+				},	
 			})
 		}
+		</script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var url = "http://localhost/restful11/index.php/insert";
+			/*$("#insertuser").submit(function(e){
+				alert('Inserted')
+				e.preventDefault();
+			})*/
+		})
 		</script>
 	</body>
 </html>
