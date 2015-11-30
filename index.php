@@ -5,7 +5,7 @@
 	
 	$app = new \Slim\slim(array(
 		'MODE' => 'developement',
-	    'TEMPLATES.PATH' => './templates'
+	    //'TEMPLATES.PATH' => './templates'
 		));
 
 	require "notorm/NotORM.php";
