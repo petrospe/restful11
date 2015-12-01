@@ -6,28 +6,29 @@
 	</head>
 	<body>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="table-responsive">
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped" id="userstable">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th>Title</th>
-								<th>Username</th>
+								<th colspan="2">Username</th>
 								<th>Email</th>
-								<th>Action</th>
+								<th colspan="2">Action</th>
 							</tr>
 							<tr>
 								<form id="insertuser" method="post">
-								<th><input type="hidden" name="_METHOD" value="PUT"></th>
+								<th></th>
 								<th><input type="text" class="form-control" name="fname" id="fname" placeholder="Name"></th>
 								<th><input type="text" class="form-control" name="lname" id="lname" placeholder="Last name"></th>
 								<th><input type="text" class="form-control" name="title" id="title" placeholder="Title"></th>
-								<th><input type="text" class="form-control" name="username" id="username" placeholder="User name"><input type="password" class="form-control" name="password" placeholder="Password"></th>
+								<th><input type="text" class="form-control" name="username" id="username" placeholder="User name"></th>
+								<th><input type="password" class="form-control" name="password" id="password" placeholder="Password"></th>
 								<th><input type="text" class="form-control" name="email" id="email" placeholder="email"></th>
-								<th><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-default">Insert</button></th>
+								<th colspan="2"><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-primary">Insert</button></th>
 								</form>
 							</tr>
 						</thead>
@@ -38,6 +39,7 @@
 		</div>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<!--
 		<script type="text/javascript">
 		$(document).ready(function(){
 			var url = "http://localhost/restful11/index.php/users";
@@ -73,6 +75,21 @@
 				},	
 			})
 		}
+		</script>
+		-->
+		<script type="text/javascript">
+			var url = "http://localhost/restful11/index.php/users";
+			$.ajax({
+			    url: url,
+			    type: 'GET',
+			    success: function (response) {
+			        var trHTML = '';
+			        $.each(response, function (i, item) {
+			            trHTML += '<tr><td>' + item.id + '</td><td>' + item.fname + '</td><td>' + item.lname + '</td><td>' + item.title + '</td><td colspan="2">' + item.username + '</td><td>' + item.email + '</td><td><button type="button" class="btn btn-warning">Edit</button></td><td><button type="button" class="btn btn-danger">Delete</button></td></tr>';
+			        });
+			        $('#userstable').append(trHTML);
+			    }
+			});
 		</script>
 		<script>
 			$(document).ready(function(){

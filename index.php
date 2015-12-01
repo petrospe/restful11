@@ -81,6 +81,24 @@
 	        ));
 	    }
 	});
+
+	$app->delete("/user/:id", function ($id) use($app, $db) {
+	    $app->response()->header("Content-Type", "application/json");
+	    $user = $db->users()->where("id", $id);
+	    if ($user->fetch()) {
+	        $result = $user->delete();
+	        echo json_encode(array(
+	            "status" => true,
+	            "message" => "User deleted successfully"
+	        ));
+	    }
+	    else{
+	        echo json_encode(array(
+	            "status" => false,
+	            "message" => "User id $id does not exist"
+	        ));
+	    }
+	});
 	/*
 	$app->get('/show',function()use($app){
 		$db = DBConnection();
