@@ -37,46 +37,25 @@
 				</div>
 			</div>
 		</div>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<!--
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
-		$(document).ready(function(){
-			var url = "http://localhost/restful11/index.php/users";
-			$.get(url,function(data){
-				data = $.parseJSON(data);
-				var _html = "";
-				$.each(data,function(i,v){
-					_html += "<tr>";
-						_html += "<td>"+v.id+"</td>";
-						_html += "<td>"+v.fname+"</td>";
-						_html += "<td>"+v.lname+"</td>";
-						_html += "<td>"+v.title+"</td>";
-						_html += "<td>"+v.username+"</td>";
-						_html += "<td>"+v.email+"</td>";
-						_html += "<td>";
-							_html += "<a href=''>Edit</a> || ";
-							_html += "<a href='' onclick=DeleteData(\""+v.id+"\")>Delete</a>";
-						_html += "</td>";
-					_html += "</tr>"
-				});
-				$("#userstable").html(_html);
-			});
-		});
-		function DeleteData(d) {
+		function DeleteUser(d) {
 			//confirm('Delete '+d+' ?')
-			var _url = "http://localhost/restful11/index.php/delete/"+d;
-			jQuery.ajax({
+			var _url = "http://localhost/restful11/index.php/user/"+d;
+			$.ajax({
 				url: _url,
 				type: "DELETE",
 				async: false,
 				success:function(data){
 					alert('Delete '+d+' ?');
+					$("#"+d).remove();
+
 				},	
 			})
 		}
 		</script>
-		-->
+		
 		<script type="text/javascript">
 			var url = "http://localhost/restful11/index.php/users";
 			$.ajax({
@@ -85,7 +64,7 @@
 			    success: function (response) {
 			        var trHTML = '';
 			        $.each(response, function (i, item) {
-			            trHTML += '<tr><td>' + item.id + '</td><td>' + item.fname + '</td><td>' + item.lname + '</td><td>' + item.title + '</td><td colspan="2">' + item.username + '</td><td>' + item.email + '</td><td><button type="button" class="btn btn-warning">Edit</button></td><td><button type="button" class="btn btn-danger">Delete</button></td></tr>';
+			            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td>' + item.fname + '</td><td>' + item.lname + '</td><td>' + item.title + '</td><td colspan="2">' + item.username + '</td><td>' + item.email + '</td><td><button type="button" class="btn btn-warning">Edit</button></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
 			        });
 			        $('#userstable').append(trHTML);
 			    }
