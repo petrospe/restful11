@@ -17,6 +17,7 @@
 								<th>Title</th>
 								<th colspan="2">Username</th>
 								<th>Email</th>
+								<th>Status</th>
 								<th colspan="2">Action</th>
 							</tr>
 							<tr>
@@ -28,6 +29,7 @@
 								<th><input type="text" class="form-control" name="username" id="username" placeholder="User name"></th>
 								<th><input type="password" class="form-control" name="password" id="password" placeholder="Password"></th>
 								<th><input type="text" class="form-control" name="email" id="email" placeholder="email"></th>
+								<th><input type="checkbox" class="form-control" name="status" id="status"></th>
 								<th colspan="2"><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-primary">Insert</button></th>
 								</form>
 							</tr>
@@ -48,7 +50,7 @@
 				type: "DELETE",
 				async: false,
 				success:function(data){
-					alert('Delete '+d+' ?');
+					alert('Deleted '+d+'');
 					$("#"+d).remove();
 
 				},	
@@ -64,7 +66,7 @@
 			    success: function (response) {
 			        var trHTML = '';
 			        $.each(response, function (i, item) {
-			            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td>' + item.fname + '</td><td>' + item.lname + '</td><td>' + item.title + '</td><td colspan="2">' + item.username + '</td><td>' + item.email + '</td><td><button type="button" class="btn btn-warning">Edit</button></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
+			            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td>' + item.fname + '</td><td>' + item.lname + '</td><td>' + item.title + '</td><td colspan="2">' + item.username + '</td><td>' + item.email + '</td><td>' + item.status + '</td><td><button type="button" class="btn btn-warning">Edit</button></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
 			        });
 			        $('#userstable').append(trHTML);
 			    }
@@ -79,7 +81,13 @@
 				var username = $("#username").val();
 				var password = $("#password").val();
 				var email = $("#email").val();
-				var status = $("#status").val();
+				var status;
+					if ($("#status").prop("checked")){
+					    status= "1";
+					}else{
+					    status= "0";
+					}
+				//var status = $("#status").val();
 				if(username=='' && email=='')
 					{
 					alert("Please fill out the form");
