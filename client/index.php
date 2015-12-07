@@ -48,7 +48,7 @@
 		<script type="text/javascript">
 		function DeleteUser(d) {
 			//confirm('Delete '+d+' ?')
-			var _url = "http://localhost/restful11/index.php/user/"+d;
+			var _url = "http://localhost/restful11/api/index.php/user/"+d;
 			$.ajax({
 				url: _url,
 				type: "DELETE",
@@ -61,7 +61,7 @@
 		}
 		</script>
 		<script type="text/javascript">
-			var url = "http://localhost/restful11/index.php/users";
+			var url = "http://localhost/restful11/api/index.php/users";
 			$.ajax({
 			    url: url,
 			    type: 'GET',
@@ -98,7 +98,7 @@
 				else if(username=='' && email!==''){alert('Username field is required')}
 				else if(email=='' && username!==''){alert('Email field is required')}
 				else{
-					$.post("http://localhost/restful11/index.php/user", //Required URL of the page on server
+					$.post("http://localhost/restful11/api/index.php/user", //Required URL of the page on server
 						{ // Data Sending With Request To Server
 						fname:fname,
 						lname:lname,
