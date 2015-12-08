@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RESTful Client</title>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Application</h1>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped" id="userstable">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Title</th>
+									<th colspan="2">Username</th>
+									<th>Email</th>
+									<th>Status</th>
+									<th colspan="2">Action</th>
+								</tr>
+								<tr>
+									<form id="insertuser" method="post">
+									<th></th>
+									<th><input type="text" class="form-control" name="fname" id="fname" placeholder="Name"></th>
+									<th><input type="text" class="form-control" name="lname" id="lname" placeholder="Last name"></th>
+									<th><input type="text" class="form-control" name="title" id="title" placeholder="Title"></th>
+									<th><input type="text" class="form-control" name="username" id="username" placeholder="User name"></th>
+									<th><input type="password" class="form-control" name="password" id="password" placeholder="Password"></th>
+									<th><input type="text" class="form-control" name="email" id="email" placeholder="email"></th>
+									<th><input type="checkbox" class="form-control" name="status" id="status"></th>
+									<th colspan="2"><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-primary">Insert</button></th>
+									</form>
+								</tr>
+							</thead>
+							<tbody id="userstable"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+	</body>
+</html>
