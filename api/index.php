@@ -63,12 +63,21 @@
 	    echo json_encode(array("id" => $result["id"]));
 	});
 
-	$app->put("/user/:id", function ($id) use ($app, $db) {
-	    $app->response()->header("Content-Type", "application/json");
-	    $user = $db->users()->where("id", $id);
-	    if ($user->fetch()) {
-	        $post = $app->request()->put();
-	        $result = $user->update($post);
+	$app->put("/user/:id/:jsondata", function ($id, $jsondata) use ($app, $db) {
+		try{
+			//Test array
+			$testAr = array("fname" =>"Petran" , "lname"=>"Petropoulan");
+			$testJs = json_encode($testAr);
+
+			$updateUserData = json_decode($jsondata, true);
+			
+			print_r($updateUserData);
+		    $app->response()->header("Content-Type", "application/json");
+		    $user = $db->users()->where("id", $id);
+
+			if ($user) {
+			    $result = $user->update($updateUserData);
+
 	        echo json_encode(array(
 	            "status" => (bool)$result,
 	            "message" => "User updated successfully"
@@ -80,6 +89,11 @@
 	            "message" => "User id $id does not exist"
 	        ));
 	    }
+	}
+	catch(Exception $e)
+	{
+		echo $e->getMessage();
+	}
 	});
 
 	$app->delete("/user/:id", function ($id) use($app, $db) {

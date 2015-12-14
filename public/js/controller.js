@@ -25,15 +25,18 @@ $.ajax({
         });
         $('#userstable').append(trHTML);
 
-        $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
-        var edturl = 'http://localhost/restful11/api/index.php/user';
+        $.fn.editable.defaults.ajaxOptions = {type: 'put',dataType: 'json'};
+        var edturl = 'http://localhost/restful11/api/index.php/user/1';
         $('#fname1').editable({
+        method: 'put',
+       // fname1 : fname,
 	    type: 'text',
 	    url: edturl,    
-	    pk: 1,    
+	    //pk: 1,    
 	    title: 'Enter name',
-	    success: function(response, newValue) {
-	        if(response.status == 'error') return response.msg; //msg will be shown in editable form
+	    success: function(response) {
+	       // if(response.status == 'error') 
+	       return response; //msg will be shown in editable form
 	    }
 	});
 
