@@ -21,24 +21,32 @@ $.ajax({
         var trHTML = '';
         $.each(response, function (i, item) {
         	function statuslabel(){if (item.status == 1){ return 'Enabled';} else { return 'Disabled';}}
-            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" id="fname'+item.id+'">' + item.fname + '</a></td><td><a href="#" id="lname'+item.id+'">' + item.lname + '</a></td><td><a href="#" id="title'+item.id+'">' + item.title + '</a></td><td><a href="#" id="username'+item.id+'">' + item.username + '</a></td><td><a href="#" id="password'+item.id+'">' + item.password + '</a></td><td><a href="#" id="email'+item.id+'">' + item.email + '</a></td><td>' + statuslabel() + '</td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
+            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editfname" id="'+item.id+'">' + item.fname + '</a></td><td><a href="#" id="lname'+item.id+'">' + item.lname + '</a></td><td><a href="#" id="title'+item.id+'">' + item.title + '</a></td><td><a href="#" id="username'+item.id+'">' + item.username + '</a></td><td><a href="#" id="password'+item.id+'">' + item.password + '</a></td><td><a href="#" id="email'+item.id+'">' + item.email + '</a></td><td>' + statuslabel() + '</td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
         });
         $('#userstable').append(trHTML);
 
-        $.fn.editable.defaults.ajaxOptions = {type: 'put',dataType: 'json'};
-        var edturl = 'http://localhost/restful11/api/index.php/user/1';
-        $('#fname1').editable({
-        method: 'put',
-       // fname1 : fname,
-	    type: 'text',
-	    url: edturl,    
-	    //pk: 1,    
-	    title: 'Enter name',
-	    success: function(response) {
-	       // if(response.status == 'error') 
-	       return response; //msg will be shown in editable form
-	    }
-	});
+        //$.fn.editable.defaults.ajaxOptions = {type: 'put',dataType: 'json'};
+        //var edturl = 'http://localhost/restful11/api/index.php/user/1';  
+        $('.editfname').editable();
+        $(document).on('click','.editable-submit',function(){
+        var x = $(this).closest('td').children('a').attr('id');
+        var y = $('.input-sm').val();
+        var z = $(this).closest('td').children('a');
+        $.ajax({
+        url: "http://localhost/restful11/api/index.php/user/"+x+"/"+y,
+        type: 'put',
+        dataType: 'json',
+        success: function(s){
+        if(s == 'status'){
+        $(z).html(y);}
+        if(s == 'error') {
+        alert('Error Processing your Request!');}
+        },
+        error: function(e){
+        alert('Error Processing your Request!!');
+        }
+        });
+        });
 
     }
 });
