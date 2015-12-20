@@ -1,4 +1,4 @@
-
+// Delete user
 function DeleteUser(d) {
 	//confirm('Delete '+d+' ?')
 	var _url = 'http://localhost/restful11/api/index.php/user/'+d;
@@ -12,7 +12,7 @@ $('#'+d).remove();
 		},	
 	})
 }
-
+// Users grid
 var url = 'http://localhost/restful11/api/index.php/users';
 $.ajax({
     url: url,
@@ -21,19 +21,19 @@ $.ajax({
         var trHTML = '';
         $.each(response, function (i, item) {
         	function statuslabel(){if (item.status == 1){ return 'Enabled';} else { return 'Disabled';}}
-            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" id="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" id="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" id="title">' + item.title + '</a></td><td><a href="#" class="editdata" id="username">' + item.username + '</a></td><td><a href="#" class="editdata" id="password">' + item.password + '</a></td><td><a href="#" class="editdata" id="email">' + item.email + '</a></td><td>' + statuslabel() + '</td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
+            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" id="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" id="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" id="title">' + item.title + '</a></td><td><a href="#" class="editdata" id="username">' + item.username + '</a></td><td><a href="#" class="editdata" id="password">' + item.password + '</a></td><td><a href="#" class="editdata" id="email">' + item.email + '</a></td><td><a href="#" class="editdata" id="status">' + statuslabel() + '</a></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
         });
         $('#userstable').append(trHTML);
 
-        //Edit fields
-        $.fn.editable.defaults.mode = 'popup';
+        //Edit users fields
+        //$.fn.editable.defaults.mode = 'popup';
         $('.editdata').editable();
         $(document).on('click','.editable-submit',function(){
         var x = $(this).closest('tr').attr('id');
         var y = $(this).closest('td').children('a').attr('id');
         var z = $('.input-sm').val();
-        var p = {}
-        p [y] = z;
+        var p = {};
+        p[y] = z;
         var w = JSON.stringify(p);
         $.ajax({
         url: "http://localhost/restful11/api/index.php/user/"+x+"/"+w,
@@ -43,17 +43,17 @@ $.ajax({
 
     }
 });
-
+// Insert users
 $(document).ready(function(){
 	$('#usersubmit').click(function(){
-	var fname = $('#inpfname').val();
-	var lname = $('#inplname').val();
-	var title = $('#inptitle').val();
-	var username = $('#inpusername').val();
-	var password = $('#inppassword').val();
-	var email = $('#inpemail').val();
+	var fname = $('#insfname').val();
+	var lname = $('#inslname').val();
+	var title = $('#institle').val();
+	var username = $('#insusername').val();
+	var password = $('#inspassword').val();
+	var email = $('#insemail').val();
 	var status;
-		if ($('#inpstatus').prop('checked')){
+		if ($('#insstatus').prop('checked')){
 		    status= '1';
 		}else{
 		    status= '0';
