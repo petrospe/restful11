@@ -1,8 +1,5 @@
 {
     "require": {
-        "slim/slim": "^2.6",
-        "firebase/php-jwt": "^3.0",
-        "zendframework/zend-config": "^2.5",
-        "zendframework/zend-http": "^2.5"
+        "slim/slim": "^2.6"
     }
 }
