@@ -1,6 +1,8 @@
 <?php
+/* Frontend Controler */
 require '../vendor/autoload.php';
-$app = new \Slim\Slim();
+$config['displayErrorDetails'] = true;
+$app = new \Slim\Slim((["settings" => $config]));
 	
 $app->get('/', function () use ($app) {
     $data = array(
@@ -18,14 +20,14 @@ $app->get('/', function () use ($app) {
 
 $app->get('/tasks', function () use ($app) {
     $data = array(
-        'tasks' => file_get_contents('templates/tasks.php'),
+        'tasks' => file_get_contents('templates/tasks.inc.php'),
     );
     $app->render('frontpage.php',$data);
 });
 
 $app->get('/users', function () use ($app) {
     $data = array(
-        'users' => file_get_contents('templates/users.php'),
+        'users' => file_get_contents('templates/users.inc.php'),
     );
     $app->render('frontpage.php',$data);
 });

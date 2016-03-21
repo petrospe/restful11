@@ -4,7 +4,7 @@
         <h1>Grid <small>System users</small></h1>
     </div>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
            <div class="table-responsive">
                 <table class="table table-bordered table-striped" id="userstable">
                     <thead>
