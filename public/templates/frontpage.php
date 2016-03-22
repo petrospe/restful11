@@ -12,8 +12,11 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <!--FullCalendar Dependencies-->
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css">
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css" media="print">
+        <?php if(!empty($tasks)){
+            echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css'>\n";
+            echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css' media='print'>\n";
+        }
+        ?>
     </head>
     <body>
         <div class="container">
@@ -82,19 +85,24 @@
                     </div>
                 </footer>
             </div>
-            
-            <!--Application scripts-->
-            <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-            <script type="text/javascript" src="js/scripts.js"></script>
-            <!--User controller-->
-            <script type="text/javascript" src="js/userController.js"></script>
-            <!--Calendar script-->
-            <script type="text/javascript" src="js/moment.min.js"></script>
-            <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js"></script>
-            <script type="text/javascript" src="js/calendarController.js"></script>
         </div>
+        <!--Application scripts-->
+        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <!--User controller-->
+        <?php if(!empty($users)){
+            echo "<script type='text/javascript' src='js/userController.js'></script>";
+        }
+        ?>
+        <!--Calendar script-->
+        <?php if(!empty($tasks)){
+            echo "<script type='text/javascript' src='js/moment.min.js'></script>\n";
+            echo "<script type='text/javascript' src='js/jquery-ui.custom.min.js'></script>\n";
+            echo "<script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js'></script>\n";
+            echo "<script type='text/javascript' src='js/calendarController.js'></script>";
+        }
+        ?>
     </body>
 </html>

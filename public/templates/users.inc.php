@@ -1,5 +1,5 @@
 <!-- Included file in frontpage temlpate-->
-<div>
+<div id="users">
     <div class="page-header">
         <h1>Grid <small>System users</small></h1>
     </div>
