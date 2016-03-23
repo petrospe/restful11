@@ -19,7 +19,7 @@
                             <th>Action</th>
                         </tr>
                         <tr>
-                            <form id="insertuser">
+                            <form id="insertuser" action="">
                                 <th><input type="hidden" name="_METHOD" value="PUT"></th>
                                 <th><input type="text" class="form-control" name="insfname" id="insfname" placeholder="Name"></th>
                                 <th><input type="text" class="form-control" name="inslname" id="inslname" placeholder="Last name"></th>

@@ -1,7 +1,8 @@
+var pathArray = window.location.pathname.split( '/' );
 // Delete user
 function DeleteUser(d) {
     //confirm('Delete '+d+' ?')
-    var deleteurl = 'http://localhost/restful11/api/index.php/user/'+d;
+    var deleteurl = pathArray[0]+'/restful11/api/index.php/user/'+d;
     $.ajax({
         url: deleteurl,
         type: 'DELETE',
@@ -13,7 +14,7 @@ function DeleteUser(d) {
 	});
 }
 // Users grid
-var gridurl = 'http://localhost/restful11/api/index.php/users';
+var gridurl = pathArray[0]+'/restful11/api/index.php/users';
 $.ajax({
     url: gridurl,
     type: 'GET',
@@ -42,7 +43,7 @@ $.ajax({
             p[y] = z;
             var w = JSON.stringify(p);
             $.ajax({
-                url: 'http://localhost/restful11/api/index.php/user/'+x+'/'+w,
+                url: pathArray[0]+'/restful11/api/index.php/user/'+x+'/'+w,
                 type: 'put'
             });
         });
@@ -50,7 +51,7 @@ $.ajax({
 });
 // Insert users
 function UserInsertSubmit() {
-    var inserturl = 'http://localhost/restful11/api/index.php/user';
+    var inserturl = pathArray[0]+'/restful11/api/index.php/user';
     if ($('#insstatus').prop('checked')){
         var status= '1';
     }else{
