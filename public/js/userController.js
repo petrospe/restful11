@@ -1,21 +1,21 @@
 // Delete user
 function DeleteUser(d) {
     //confirm('Delete '+d+' ?')
-    var _url = 'http://localhost/restful11/api/index.php/user/'+d;
+    var deleteurl = 'http://localhost/restful11/api/index.php/user/'+d;
     $.ajax({
-        url: _url,
+        url: deleteurl,
         type: 'DELETE',
         async: false,
         success:function(data){
             alert('Deleted '+d+'');
             $('#'+d).remove();
-            },	
-	})
+            }
+	});
 }
 // Users grid
-var url = 'http://localhost/restful11/api/index.php/users';
+var gridurl = 'http://localhost/restful11/api/index.php/users';
 $.ajax({
-    url: url,
+    url: gridurl,
     type: 'GET',
     success: function (response) {
         var trHTML = '';
@@ -43,47 +43,47 @@ $.ajax({
             var w = JSON.stringify(p);
             $.ajax({
                 url: 'http://localhost/restful11/api/index.php/user/'+x+'/'+w,
-                type: 'put',
+                type: 'put'
             });
         });
     }
 });
 // Insert users
-$(document).ready(function(){
-    $('#usersubmit').click(function(){
-        var fname = $('#insfname').val();
-        var lname = $('#inslname').val();
-        var title = $('#institle').val();
-        var username = $('#insusername').val();
-        var password = $('#inspassword').val();
-        var email = $('#insemail').val();
-        var status;
-        if ($('#insstatus').prop('checked')){
-            status= '1';
-        }else{
-            status= '0';
-        }
-	//var status = $("#status").val();
-	if(username=='' && email==''){
-            alert('Please fill out the form');
-        }
-        else if(username=='' && email!==''){alert('Username field is required')}
-        else if(email=='' && username!==''){alert('Email field is required')}
-	else{
-            $.post('http://localhost/restful11/api/index.php/user', //Required URL of the page on server
-            { // Data Sending With Request To Server
-            fname:fname,
-            lname:lname,
-            title:title,
-            username:username,
-            password:password,
-            email:email,
+function UserInsertSubmit() {
+    var inserturl = 'http://localhost/restful11/api/index.php/user';
+    if ($('#insstatus').prop('checked')){
+        var status= '1';
+    }else{
+        var status= '0';
+    }
+    if($('#insusername').val()=='' && $('#insemail').val()==''){
+        alert('Please fill out the form');
+    }
+    else if($('#insusername').val()=='' && $('#insemail').val()!==''){alert('Username field is required');}
+    else if($('#insemail').val()=='' && $('#insusername').val()!==''){alert('Email field is required');}
+    else{
+        var userinsert = {
+            fname:$('#insfname').val(),
+            lname:$('#inslname').val(),
+            title:$('#institle').val(),
+            username:$('#insusername').val(),
+            password:$('#inspassword').val(),
+            email:$('#insemail').val(),
             status:status
-            },
-            function(response,status){ // Required Callback Function
-                alert('*----Received Data----*\n\nResponse : ' + response+'\n\nStatus : ' + status);//"response" receives - whatever written in echo of above PHP script.
-                $('#insertuser')[0].reset();
-            });
-        }
-    });
-});
+        };
+        $.ajax({
+            url: inserturl,
+            type: 'POST',
+            async: false,
+            data: userinsert,
+            datatype: 'json',
+            success:function(msg){
+                if(msg){
+                    alert('User '+$('#insusername').val()+' was added');
+                }else{
+                    alert('User cannot added');
+                }
+            }
+        });
+    }
+}

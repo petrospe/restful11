@@ -1,5 +1,5 @@
 <!-- Included file in frontpage template-->
-<div>
+<div id="tasks">
     <div class="page-header">
         <h1>Tasks <small>System task</small></h1>
     </div>

@@ -19,7 +19,7 @@
                             <th>Action</th>
                         </tr>
                         <tr>
-                            <form id="insertuser" method="post">
+                            <form id="insertuser">
                                 <th><input type="hidden" name="_METHOD" value="PUT"></th>
                                 <th><input type="text" class="form-control" name="insfname" id="insfname" placeholder="Name"></th>
                                 <th><input type="text" class="form-control" name="inslname" id="inslname" placeholder="Last name"></th>
@@ -28,7 +28,7 @@
                                 <th><input type="password" class="form-control" name="inspassword" id="inspassword" placeholder="Password"></th>
                                 <th><input type="text" class="form-control" name="insemail" id="insemail" placeholder="email"></th>
                                 <th><input type="checkbox" class="form-control" name="insstatus" id="insstatus"></th>
-                                <th><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-primary">Insert</button></th>
+                                <th><button type="submit" name="usersubmit" id="usersubmit" class="btn btn-primary" onclick="UserInsertSubmit()">Insert</button></th>
                             </form>
                         </tr>
                     </thead>

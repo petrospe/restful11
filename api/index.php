@@ -71,7 +71,10 @@
             $app->response()->header('Content-Type', 'application/json');
             $user = $app->request()->post();
             $result = $db->users->insert($user);
-            echo json_encode(array("id" => $result["id"]));
+            echo json_encode(array(
+                "id" => $result["id"],
+                "message" => "Add user successfully"
+                ));
         }
         catch(Exception $e){
             echo $e->getMessage();
