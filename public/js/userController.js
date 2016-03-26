@@ -52,7 +52,7 @@ $.ajax({
 // Insert users
 $(document).ready(function() {
     $('thead#userstablethead').append(
-    // Creating thead tag.
+    // Creating <thead> <th> tag with labels.
         $('<tr/>').append(
             $('<th/>').text('ID'),
             $('<th/>').text('First Name'),
@@ -67,7 +67,7 @@ $(document).ready(function() {
             $('<th/>').text('Action')
         ),/* End of Label */
         $('<tr/>').append(
-        // Create <form> Tag and Appending in HTML Div form1.
+        // Create <th> Tag and Appending in HTML form.
             $('<th/>').append(
                 $('<input/>', {
                         type: 'hidden',
