@@ -50,6 +50,98 @@ $.ajax({
     }
 });
 // Insert users
+$(document).ready(function() {
+    $('thead#userstablethead').append(
+    // Creating thead tag.
+        $('<tr/>').append(
+            $('<th/>').text('ID'),
+            $('<th/>').text('First Name'),
+            $('<th/>').text('Last Name'),
+            $('<th/>').text('Title'),
+            $('<th/>', {
+                    colspan:'2',
+                    text: 'Username'
+            }),
+            $('<th/>').text('Email'),
+            $('<th/>').text('Status'),
+            $('<th/>').text('Action')
+        ),/* End of Label */
+        $('<tr/>').append(
+        // Create <form> Tag and Appending in HTML Div form1.
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'hidden',
+                        name: '_METHOD',
+                        value: 'PUT'
+                })
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'text',
+                        id: 'insfname',
+                        name: 'insfname',
+                        placeholder: 'Name'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'text',
+                        id: 'inslname',
+                        name: 'inslname',
+                        placeholder: 'Last name'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'text',
+                        id: 'institle',
+                        name: 'institle',
+                        placeholder: 'Title'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'text',
+                        id: 'insusername',
+                        name: 'insusername',
+                        placeholder: 'User name'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'password',
+                        id: 'inspassword',
+                        name: 'inspassword',
+                        placeholder: 'Password'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'text',
+                        id: 'insemail',
+                        name: 'insemail',
+                        placeholder: 'email'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<input/>', {
+                        type: 'checkbox',
+                        id: 'insstatus',
+                        name: 'insstatus'
+                }).addClass('form-control')
+            ),
+            $('<th/>').append(
+                $('<button/>', {
+                        type: 'submit',
+                        id: 'usersubmit',
+                        name: 'usersubmit',
+                        onclick: 'UserInsertSubmit()',
+                        text: 'Insert'
+                }).addClass('btn btn-primary')
+            )
+        ) /* End of Input Form */
+    );
+});
 function UserInsertSubmit() {
     var inserturl = pathArray[0]+'/restful11/api/index.php/user';
     if ($('#insstatus').prop('checked')){
@@ -81,6 +173,7 @@ function UserInsertSubmit() {
             success:function(msg){
                 if(msg){
                     alert('User '+$('#insusername').val()+' was added');
+                    location.reload();
                 }else{
                     alert('User cannot added');
                 }
