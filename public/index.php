@@ -1,5 +1,5 @@
 <?php
-/* Frontend Controler */
+/* Frontend Controller */
 require '../vendor/autoload.php';
 $config['displayErrorDetails'] = true;
 $app = new \Slim\Slim((["settings" => $config]));

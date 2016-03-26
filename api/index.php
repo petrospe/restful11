@@ -1,5 +1,5 @@
 <?php
-/* Backend Controler */
+/* Backend Controller */
     require '../vendor/autoload.php';
 
     \Slim\Slim::registerAutoloader();
@@ -125,5 +125,25 @@
             echo $e->getMessage();
         }
     });
-    
+    /* Get tasks */
+    $app->get('/tasks', function () use ($app, $db) {
+        try{
+            $tasks = array();
+            foreach ($db->tasks() as $task) {
+                $tasks[]  = array(
+                    'id' => $task['id'],
+                    'title' => $task['title'],
+                    'description' => $task['description'],
+                    'title' => $task['title'],
+                    'start' => $task['start'],
+                    'end' => $task['end']
+                );
+            }
+            $app->response()->header('Content-Type', 'application/json');
+            echo json_encode($tasks);
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
     $app->run();

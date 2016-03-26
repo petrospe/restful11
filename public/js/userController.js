@@ -1,3 +1,4 @@
+// Path initialization
 var pathArray = window.location.pathname.split( '/' );
 // Delete user
 function DeleteUser(d) {
