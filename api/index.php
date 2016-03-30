@@ -134,13 +134,27 @@
                     'id' => $task['id'],
                     'title' => $task['title'],
                     'description' => $task['description'],
-                    'title' => $task['title'],
                     'start' => $task['start'],
                     'end' => $task['end']
                 );
             }
             $app->response()->header('Content-Type', 'application/json');
             echo json_encode($tasks);
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Task Insert */
+    $app->post('/task', function () use($app, $db) {
+        try{
+            $app->response()->header('Content-Type', 'application/json');
+            $task = $app->request()->post();
+            $result = $db->tasks->insert($task);
+            echo json_encode(array(
+                "id" => $result["id"],
+                "message" => "Add task successfully"
+                ));
         }
         catch(Exception $e){
             echo $e->getMessage();
