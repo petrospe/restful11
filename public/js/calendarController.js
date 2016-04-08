@@ -41,6 +41,7 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        defaultView: 'agendaWeek',
         defaultDate: new Date(),
         selectable: true,
         selectHelper: true,
@@ -78,7 +79,13 @@ $(document).ready(function() {
             $('#calendar').fullCalendar('unselect');
         },
         eventClick: function(calEvent, jsEvent, view) {
-            alert('Event: ' + calEvent.title + ' ,DateTime: '+ calEvent.start);
+            var title = prompt('Event Title:', calEvent.title, { buttons: { Ok: true, Cancel: false} });
+
+          if (title){
+              calEvent.title = title;
+              calendar.fullCalendar('updateEvent',calEvent);
+          }
+//            alert('Event: ' + calEvent.title + ' ,DateTime: '+ calEvent.start);
 //          alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //          alert('View: ' + view.name);
 
