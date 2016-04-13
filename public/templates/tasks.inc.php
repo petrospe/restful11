@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-md-12">
            <div id="calendar"></div> 
+           <div id="taskdialog" title="Task" style="display:none"></div>
         </div>
     </div>
 </div>

@@ -160,4 +160,49 @@
             echo $e->getMessage();
         }
     });
+    /* Task Update */
+    $app->put('/task/:id/:jsondata', function ($id, $jsondata) use ($app, $db) {
+        try{
+            $updateTaskData = json_decode($jsondata, true);
+            $app->response()->header('Content-Type', 'application/json');
+            $task = $db->tasks()->where('id', $id);
+            if($task){
+                $result = $task->update($updateTaskData);
+                echo json_encode(array(
+                    "status" => (bool)$result,
+                    "message" => "Task updated successfully"
+                ));
+            }else{
+                echo json_encode(array(
+                    "status" => false,
+                    "message" => "Task id $id does not exist"
+                ));
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Task Delete */
+    $app->delete('/task/:id', function ($id) use($app, $db) {
+        try{
+            $app->response()->header('Content-Type', 'application/json');
+            $task = $db->tasks()->where('id', $id);
+            if($task->fetch()){
+                $result = $task->delete();
+                echo json_encode(array(
+                    "status" => true,
+                    "message" => "Task deleted successfully"
+                ));
+            }else{
+                echo json_encode(array(
+                    "status" => false,
+                    "message" => "Task id $id does not exist"
+                ));
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
     $app->run();
