@@ -80,6 +80,8 @@
                                 <a target="_blank" href="http://www.slimframework.com/">Slim Framework</a>
                                 |
                                 <a target="_blank" href="http://fullcalendar.io/">FullCalendar</a>
+                                |
+                                <a target="_blank" href="https://vitalets.github.io/x-editable/">X-editable</a>
                             </p>
                         </div>
                     </div>

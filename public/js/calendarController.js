@@ -65,6 +65,8 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+//        height: 'auto',
+//        contentHeight: 'auto',
         defaultView: 'agendaWeek',
         defaultDate: new Date(),
         selectable: true,
@@ -146,6 +148,40 @@ $(document).ready(function() {
             $(this).css('border-color', 'red');
         },
         editable: true,
+        eventResize: function(calEvent, jsEvent, view) {
+            var taskupdate = {
+                start:(calEvent.start).format('YYYY-MM-DD HH:mm:ss'),
+                end:(calEvent.end).format('YYYY-MM-DD HH:mm:ss')
+            };
+            var w = JSON.stringify(taskupdate);
+            var d = calEvent.id;
+            var updateurl = pathArray[0]+'/restful11/api/index.php/task/'+d+'/'+w;
+            $.ajax({
+                url: updateurl,
+                type: 'put',
+                async: false,
+                success:function(data){
+                    alert(calEvent.title + " end is now " + calEvent.end.format());
+                }
+            });
+        },
+         eventDrop: function(event, delta, revertFunc) {
+            var taskupdate = {
+                start:(event.start).format('YYYY-MM-DD HH:mm:ss'),
+                end:(event.end).format('YYYY-MM-DD HH:mm:ss')
+            };
+            var w = JSON.stringify(taskupdate);
+            var d = event.id;
+            var updateurl = pathArray[0]+'/restful11/api/index.php/task/'+d+'/'+w;
+            $.ajax({
+                url: updateurl,
+                type: 'put',
+                async: false,
+                success:function(data){
+                    alert(event.title + " end is now " + event.end.format());
+                }
+            });
+        },
         eventLimit: true, // allow "more" link when too many events
 // Get Tasks
         events: calendarurl
