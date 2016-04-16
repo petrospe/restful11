@@ -1,8 +1,8 @@
 // Path initialization
 var pathArray = window.location.pathname.split( '/' );
 // Calendar tasks
-var calendarurl = pathArray[0]+'/restful11/api/index.php/tasks';
-
+var calendarurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/tasks';
+// Modal Window
 $(document).ready(function() {
     $('#taskdialog').append(
         $('<div/>').append(
@@ -67,10 +67,12 @@ $(document).ready(function() {
         },
 //        height: 'auto',
 //        contentHeight: 'auto',
+        firstDay: 1,
         defaultView: 'agendaWeek',
         defaultDate: new Date(),
         selectable: true,
         selectHelper: true,
+// Task Insert
         select: function(start, end) {
             var title = prompt('Event Title:');
             var start=moment(start).format('YYYY-MM-DD HH:mm:ss');
@@ -84,7 +86,7 @@ $(document).ready(function() {
 //                  allDay : false
                 };
                 $.ajax({
-                    url: pathArray[0]+'/restful11/api/index.php/task',
+                    url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/task',
                     type: 'POST',
                     async: false,
                     data: eventData,
@@ -121,7 +123,7 @@ $(document).ready(function() {
                 };
                 var w = JSON.stringify(taskupdate);
                 var d = calEvent.id;
-                var updateurl = pathArray[0]+'/restful11/api/index.php/task/'+d+'/'+w;
+                var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
                 $.ajax({
                     url: updateurl,
                     type: 'put',
@@ -133,7 +135,7 @@ $(document).ready(function() {
             }),
             $('#delete').click(function(){
                 var d = calEvent.id;
-                var deleteurl = pathArray[0]+'/restful11/api/index.php/task/'+d;
+                var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d;
                 $.ajax({
                     url: deleteurl,
                     type: 'DELETE',
@@ -155,7 +157,7 @@ $(document).ready(function() {
             };
             var w = JSON.stringify(taskupdate);
             var d = calEvent.id;
-            var updateurl = pathArray[0]+'/restful11/api/index.php/task/'+d+'/'+w;
+            var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
             $.ajax({
                 url: updateurl,
                 type: 'put',
@@ -172,7 +174,7 @@ $(document).ready(function() {
             };
             var w = JSON.stringify(taskupdate);
             var d = event.id;
-            var updateurl = pathArray[0]+'/restful11/api/index.php/task/'+d+'/'+w;
+            var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
             $.ajax({
                 url: updateurl,
                 type: 'put',
