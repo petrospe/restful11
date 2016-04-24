@@ -101,6 +101,7 @@
         <!--Calendar script-->
         <?php if(!empty($tasks)){
             echo "<script type='text/javascript' src='js/moment.min.js'></script>\n";
+            echo "<script type='text/javascript' src='js/moment-duration-format.js'></script>\n";
             echo "<script type='text/javascript' src='js/jquery-ui.custom.min.js'></script>\n";
             echo "<script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js'></script>\n";
             echo "<script type='text/javascript' src='js/calendarController.js'></script>";

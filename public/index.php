@@ -11,7 +11,7 @@ $app->get('/', function () use ($app) {
                             <div class='page-header'>
                                 <h1>Task App <small>Welcome to Task App</small></h1>
                             </div>
-                            <p>This is a tiny user-task magager Application</p>
+                            <p>This is a tiny user-task manager Application</p>
                         </div>
                     </div>",
     );

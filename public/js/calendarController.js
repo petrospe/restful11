@@ -18,8 +18,9 @@ $(document).ready(function() {
                         placeholder: 'Title'
                     }).addClass('form-control'),
                     $('<label/>').append('Description'),
-                    $('<input/>', {
-                        type: 'text',
+                    $('<textarea/>', {
+                        row: '4',
+                        cols: '50',
                         id: 'description',
                         placeholder: 'Description'
                     }).addClass('form-control'),
@@ -27,13 +28,13 @@ $(document).ready(function() {
                     $('<input/>', {
                         type: 'text',
                         id: 'start',
-                        placeholder: 'Start datetime'
+                        disabled: 'disabled'
                     }).addClass('form-control'),
-                    $('<label/>').append('End Datetime'),
+                    $('<label/>').append('Duration'),
                     $('<input/>', {
                         type: 'text',
-                        id: 'end',
-                        placeholder: 'End datetime'
+                        id: 'duration',
+                        disabled: 'disabled'
                     }).addClass('form-control')
                 ).addClass('modal-body'),
                 $('<div/>').append(
@@ -75,8 +76,8 @@ $(document).ready(function() {
 // Task Insert
         select: function(start, end) {
             var title = prompt('Event Title:');
-            var start=moment(start).format('YYYY-MM-DD HH:mm:ss');
-            var end=moment(end).format('YYYY-MM-DD HH:mm:ss');
+            var start=moment(start).format('YYYY-MM-DD HH:mm');
+            var end=moment(end).format('YYYY-MM-DD HH:mm');
             var eventData;
             if (title) {
                 eventData = {
@@ -109,8 +110,8 @@ $(document).ready(function() {
         eventClick: function(calEvent, jsEvent, view) {
             $('#title').val(calEvent.title);
             $('#description').val(calEvent.description);
-            $('#start').val((calEvent.start).format('YYYY-MM-DD HH:mm:ss'));
-            $('#end').val((calEvent.end).format('YYYY-MM-DD HH:mm:ss'));
+            $('#start').val((calEvent.start).format('YYYY-MM-DD HH:mm'));
+            $('#duration').val(moment.duration(calEvent.end - calEvent.start).format('HH:mm'));
             $('#close').click(function(){
                 $('#taskdialog').modal('hide')
             }),
@@ -118,8 +119,6 @@ $(document).ready(function() {
                var taskupdate = {
                     title:$('#title').val(),
                     description:$('#description').val(),
-                    start:$('#start').val(),
-                    end:$('#end').val()
                 };
                 var w = JSON.stringify(taskupdate);
                 var d = calEvent.id;
