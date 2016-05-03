@@ -113,7 +113,8 @@ $(document).ready(function() {
             $('#start').val((calEvent.start).format('YYYY-MM-DD HH:mm'));
             $('#duration').val(moment.duration(calEvent.end - calEvent.start).format('HH:mm'));
             $('#close').click(function(){
-                $('#taskdialog').modal('hide')
+                $('#taskdialog').modal('hide');
+                location.reload();
             }),
             $('#save').click(function(){
                var taskupdate = {
