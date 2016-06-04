@@ -24,7 +24,7 @@ $.ajax({
         $.each(response, function (i, item) {
             function rolelabel(){if (item.role == 'admin'){ return 'Admin';} else if (item.role == 'member') { return 'Member';} else if (item.role == 'guest') { return 'Guest';}}
             function statuslabel(){if (item.status == 1){ return 'Enabled';} else { return 'Disabled';}}
-            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" id="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" id="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" id="title">' + item.title + '</a></td><td><a href="#" class="editdata" id="username">' + item.username + '</a></td><td><a href="#" class="editdata" id="password">' + item.password + '</a></td><td><a href="#" class="selectrole" id="role" data-type="select">' + rolelabel() + '</a></td><td><a href="#" class="editdata" id="email">' + item.email + '</a></td><td><a href="#" class="selectstatus" id="status" data-type="select">' + statuslabel() + '</a></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
+            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" name="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" name="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" name="title">' + item.title + '</a></td><td><a href="#" class="editdata" name="username">' + item.username + '</a></td><td><a href="#" class="editdata" name="password">' + item.password + '</a></td><td><a href="#" class="selectrole" name="role" data-type="select">' + rolelabel() + '</a></td><td><a href="#" class="editdata" name="email">' + item.email + '</a></td><td><a href="#" class="selectstatus" name="status" data-type="select">' + statuslabel() + '</a></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
         });
         $('#userstable').append(trHTML);
 
@@ -46,7 +46,7 @@ $.ajax({
         });
         $(document).on('click','.editable-submit',function(){
             var x = $(this).closest('tr').attr('id');
-            var y = $(this).closest('td').children('a').attr('id');
+            var y = $(this).closest('td').children('a').attr('name');
             var z = $('.input-sm').val();
             var p = {};
             p[y] = z;
