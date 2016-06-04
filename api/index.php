@@ -1,5 +1,5 @@
 <?php
-/* Backend Controller */
+/* Api Controller */
     require '../vendor/autoload.php';
 
     \Slim\Slim::registerAutoloader();
@@ -9,7 +9,7 @@
 //            'TEMPLATES.PATH' => './templates'
             ));
 
-    require '../notorm/NotORM.php';
+    require '../lib/notorm/NotORM.php';
 
     $pdo = new PDO('mysql:dbhost=localhost;dbname=B63Xy47C;charset=utf8','hX239y6u','5aXks8UXXk');
     $db = new NotORM($pdo);
@@ -28,6 +28,7 @@
                     'lname' => $user['lname'],
                     'title' => $user['title'],
                     'username' => $user['username'],
+                    'role' => $user['role'],
                     'email' => $user['email'],
                     'status' => $user['status']
                 );
@@ -51,6 +52,7 @@
                     "lname" => $data["lname"],
                     "title" => $data["title"],
                     "username" => $data["username"],
+                    "role" => $data["role"],
                     "email" => $data["email"],
                     "status" => $data["status"]
                     ));

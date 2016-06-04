@@ -22,8 +22,9 @@ $.ajax({
     success: function (response) {
         var trHTML = '';
         $.each(response, function (i, item) {
+            function rolelabel(){if (item.role == 'admin'){ return 'Admin';} else if (item.role == 'member') { return 'Member';} else if (item.role == 'guest') { return 'Guest';}}
             function statuslabel(){if (item.status == 1){ return 'Enabled';} else { return 'Disabled';}}
-            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" id="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" id="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" id="title">' + item.title + '</a></td><td><a href="#" class="editdata" id="username">' + item.username + '</a></td><td><a href="#" class="editdata" id="password">' + item.password + '</a></td><td><a href="#" class="editdata" id="email">' + item.email + '</a></td><td><a href="#" class="selectstatus" id="status" data-type="select">' + statuslabel() + '</a></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
+            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td><a href="#" class="editdata" id="fname">' + item.fname + '</a></td><td><a href="#" class="editdata" id="lname">' + item.lname + '</a></td><td><a href="#" class="editdata" id="title">' + item.title + '</a></td><td><a href="#" class="editdata" id="username">' + item.username + '</a></td><td><a href="#" class="editdata" id="password">' + item.password + '</a></td><td><a href="#" class="selectrole" id="role" data-type="select">' + rolelabel() + '</a></td><td><a href="#" class="editdata" id="email">' + item.email + '</a></td><td><a href="#" class="selectstatus" id="status" data-type="select">' + statuslabel() + '</a></td><td><button type="button" class="btn btn-danger" onclick="DeleteUser('+item.id+')">Delete</button></td></tr>';
         });
         $('#userstable').append(trHTML);
 
@@ -34,6 +35,13 @@ $.ajax({
             source: [
                 {value: 0, text: 'Disabled'},
                 {value: 1, text: 'Enabled'}
+           ]
+        });
+        $('.selectrole').editable({
+            source: [
+                {value: 'guest', text: 'Guest'},
+                {value: 'member', text: 'Member'},
+                {value: 'admin', text: 'Admin'},
            ]
         });
         $(document).on('click','.editable-submit',function(){
@@ -63,6 +71,7 @@ $(document).ready(function() {
                     colspan:'2',
                     text: 'Username'
             }),
+            $('<th/>').text('Role'),
             $('<th/>').text('Email'),
             $('<th/>').text('Status'),
             $('<th/>').text('Action')
@@ -117,6 +126,22 @@ $(document).ready(function() {
                 }).addClass('form-control')
             ),
             $('<th/>').append(
+                $('<select/>', {
+                    id: 'insrole',
+                    name: 'insrole'
+                }).append(
+                    $('<option/>', {
+                        value: 'guest'
+                    }).text('Guest'),
+                    $('<option/>', {
+                        value: 'member'
+                    }).text('Member'),
+                    $('<option/>', {
+                        value: 'admin'
+                    }).text('Admin')
+                ).addClass('form-control')
+            ),
+            $('<th/>').append(
                 $('<input/>', {
                         type: 'text',
                         id: 'insemail',
@@ -162,6 +187,7 @@ function UserInsertSubmit() {
             title:$('#institle').val(),
             username:$('#insusername').val(),
             password:$('#inspassword').val(),
+            role:$('#insrole').val(),
             email:$('#insemail').val(),
             status:status
         };
