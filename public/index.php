@@ -1,8 +1,13 @@
 <?php
 /* Frontend Controller */
 require '../vendor/autoload.php';
-$config['displayErrorDetails'] = true;
-$app = new \Slim\Slim((["settings" => $config]));
+//$config['displayErrorDetails'] = true;
+//$app = new \Slim\Slim((["settings" => $config]));
+$app = new \Slim\slim(array(
+            'mode' => 'developement',
+//            'templates.path' => './templates'
+            'debug' => true
+            ));
 	
 $app->get('/', function () use ($app) {
     $data = array(

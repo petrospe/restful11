@@ -5,8 +5,9 @@
     \Slim\Slim::registerAutoloader();
 
     $app = new \Slim\slim(array(
-            'MODE' => 'developement',
-//            'TEMPLATES.PATH' => './templates'
+            'mode' => 'developement',
+//            'templates.path' => './templates'
+            'debug' => true
             ));
 
     require '../lib/notorm/NotORM.php';
