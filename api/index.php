@@ -1,14 +1,48 @@
 <?php
 /* Api Controller */
+    date_default_timezone_set('Europe/Athens');
+    error_reporting(-1);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    
     require '../vendor/autoload.php';
 
     \Slim\Slim::registerAutoloader();
 
+    use JeremyKendall\Password\PasswordValidator;
+    use JeremyKendall\Slim\Auth\Adapter\Db\PdoAdapter;
+    use JeremyKendall\Slim\Auth\Bootstrap;
+    use JeremyKendall\Slim\Auth\Exception\HttpForbiddenException;
+    use JeremyKendall\Slim\Auth\Exception\HttpUnauthorizedException;
+    use Zend\Authentication\Storage\Session as SessionStorage;
+    use Zend\Session\Config\SessionConfig;
+    use Zend\Session\SessionManager;
+
+    require '../lib/Acl.php';
+    
     $app = new \Slim\slim(array(
             'mode' => 'developement',
 //            'templates.path' => './templates'
             'debug' => true
             ));
+    
+    // Configure Slim Auth components
+    $validator = new PasswordValidator();
+    $adapter = new PdoAdapter(getDb(), 'uses', 'username', 'password', $validator);
+    $acl = new lib\Acl();
+
+    $sessionConfig = new SessionConfig();
+    $sessionConfig->setOptions(array(
+        'remember_me_seconds' => 60 * 60 * 24 * 7,
+        'name' => 'resful11',
+    ));
+    $sessionManager = new SessionManager($sessionConfig);
+    $sessionManager->rememberMe();
+    $storage = new SessionStorage(null, null, $sessionManager);
+
+    $authBootstrap = new Bootstrap($app, $adapter, $acl);
+    $authBootstrap->setStorage($storage);
+    $authBootstrap->bootstrap();
 
     require '../lib/notorm/NotORM.php';
 
@@ -209,3 +243,52 @@
         }
     });
     $app->run();
+    
+    /**
+    * Creates database table, users and database connection.
+    *
+    * @return \PDO
+    */
+   function getDb()
+   {
+       $dsn = 'sqlite::memory:';
+       $options = array(
+           \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+           \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+       );
+
+       try {
+           $db = new \PDO($dsn, null, null, $options);
+       } catch (\PDOException $e) {
+           die(sprintf('DB connection error: %s', $e->getMessage()));
+       }
+
+       $create = 'CREATE TABLE IF NOT EXISTS [users] ( '
+           . '[id] INTEGER  NOT NULL PRIMARY KEY, '
+           . '[username] VARCHAR(50) NOT NULL, '
+           . '[role] VARCHAR(50) NOT NULL, '
+           . '[password] VARCHAR(255) NULL)';
+
+       $delete = 'DELETE FROM users';
+
+       $member = 'INSERT INTO users (username, role, password) '
+           . "VALUES ('member', 'member', :pass)";
+
+       $admin = 'INSERT INTO users (username, role, password) '
+           . "VALUES ('admin', 'admin', :pass)";
+
+       try {
+           $db->exec($create);
+           $db->exec($delete);
+
+           $member = $db->prepare($member);
+           $member->execute(array('pass' => password_hash('member', PASSWORD_DEFAULT)));
+
+           $admin = $db->prepare($admin);
+           $admin->execute(array('pass' => password_hash('admin', PASSWORD_DEFAULT)));
+       } catch (\PDOException $e) {
+           die(sprintf('DB setup error: %s', $e->getMessage()));
+       }
+
+       return $db;
+   }

@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^2.6",
-        "jeremykendall/slim-auth": "^1.0"
+        "jeremykendall/slim-auth": "^1.0",
+        "monolog/monolog": "^1.19"
     }
 }

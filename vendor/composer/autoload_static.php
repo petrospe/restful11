@@ -21,6 +21,10 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
             'Zend\\EventManager\\' => 18,
             'Zend\\Authentication\\' => 20,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -48,6 +52,10 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-authentication/src',
         ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -63,6 +71,13 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
             'Slim' => 
             array (
                 0 => __DIR__ . '/..' . '/slim/slim',
+            ),
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/psr/log',
             ),
         ),
         'J' => 
