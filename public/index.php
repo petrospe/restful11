@@ -51,7 +51,7 @@ $app->error(function (\Exception $e) use ($app) {
     }
 
     if ($e instanceof HttpUnauthorizedException) {
-        return $app->redirectTo('login');
+        return $app->redirectTo('/login');
     }
 
     // You should handle other exceptions here, not throw them
@@ -123,7 +123,7 @@ $app->map('/login', function () use ($app) {
         $result = $app->authenticator->authenticate($username, $password);
 
         if ($result->isValid()) {
-            $app->redirect('/');
+            $app->redirect('/restful11/public/');
         } else {
             $messages = $result->getMessages();
             $app->flashNow('error', $messages[0]);
@@ -138,7 +138,7 @@ $app->get('/logout', function () use ($app) {
         $app->auth->clearIdentity();
     }
 
-    $app->redirect('/');
+    $app->redirect('/restful11/public/login');
 });
 
 //$app->get('/login', function () use ($app) {

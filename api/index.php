@@ -34,7 +34,7 @@
     $sessionConfig = new SessionConfig();
     $sessionConfig->setOptions(array(
         'remember_me_seconds' => 60 * 60 * 24 * 7,
-        'name' => 'resful11',
+        'name' => 'restful11',
     ));
     $sessionManager = new SessionManager($sessionConfig);
     $sessionManager->rememberMe();

@@ -32,7 +32,7 @@ class Acl extends ZendAcl
         // Application resources == Slim route patterns
         $this->addResource('/');
         $this->addResource('/login');
-//        $this->addResource('/logout');
+        $this->addResource('/logout');
 //        $this->addResource('/member');
 //        $this->addResource('/admin');
         $this->addResource('/tasks');
@@ -46,7 +46,7 @@ class Acl extends ZendAcl
         // The third argument is 'privilege'. In Slim Auth privilege == HTTP method
 //        $this->allow('guest', '/', $this->defaultPrivilege);
         $this->allow('guest', '/login', array('GET', 'POST'));
-//        $this->allow('guest', '/logout', $this->defaultPrivilege);
+        $this->allow('guest', '/logout', $this->defaultPrivilege);
 
 //        $this->allow('member', '/member', $this->defaultPrivilege);
         $this->allow('member', '/', $this->defaultPrivilege);
