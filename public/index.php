@@ -47,11 +47,24 @@ $authBootstrap->bootstrap();
 // Handle the possible 403 the middleware can throw
 $app->error(function (\Exception $e) use ($app) {
     if ($e instanceof HttpForbiddenException) {
-        return $app->render(array('e' => $e), 403);
+        return $app->render('403', array('e' => $e), 403);
     }
 
     if ($e instanceof HttpUnauthorizedException) {
-        return $app->redirectTo('/login');
+        return $app->redirectTo('login');
+    }
+
+    // You should handle other exceptions here, not throw them
+    throw $e;
+});
+// Handle the possible 401 the middleware can throw
+$app->error(function (\Exception $e) use ($app) {
+    if ($e instanceof HttpForbiddenException) {
+        return $app->render('401', array('e' => $e), 401);
+    }
+
+    if ($e instanceof HttpUnauthorizedException) {
+        return $app->redirectTo('login');
     }
 
     // You should handle other exceptions here, not throw them
