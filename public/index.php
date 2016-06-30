@@ -22,7 +22,7 @@ require '../lib/Acl.php';
 //$app = new \Slim\Slim((["settings" => $config]));
 $app = new \Slim\slim(array(
             'mode' => 'developement',
-//            'templates.path' => './templates'
+            'templates.path' => './templates',
             'debug' => true
             ));
 
@@ -47,7 +47,7 @@ $authBootstrap->bootstrap();
 // Handle the possible 403 the middleware can throw
 $app->error(function (\Exception $e) use ($app) {
     if ($e instanceof HttpForbiddenException) {
-        return $app->render('403', array('e' => $e), 403);
+        return $app->render('403.php', array('e' => $e), 403);
     }
 
     if ($e instanceof HttpUnauthorizedException) {
@@ -60,7 +60,7 @@ $app->error(function (\Exception $e) use ($app) {
 // Handle the possible 401 the middleware can throw
 $app->error(function (\Exception $e) use ($app) {
     if ($e instanceof HttpForbiddenException) {
-        return $app->render('401', array('e' => $e), 401);
+        return $app->render('401.php', array('e' => $e), 401);
     }
 
     if ($e instanceof HttpUnauthorizedException) {
@@ -76,8 +76,8 @@ $app->hook('slim.before.dispatch', function () use ($app) {
     $hasIdentity = $app->auth->hasIdentity();
     $identity = $app->auth->getIdentity();
     $role = ($hasIdentity) ? $identity['role'] : 'guest';
-    $memberClass = ($role == 'guest') ? 'danger' : 'success';
-    $adminClass = ($role != 'admin') ? 'danger' : 'success';
+    $memberClass = ($role == 'guest') ? 'disabled' : '';
+    $adminClass = ($role != 'admin') ? 'disabled' : '';
 
     $data = array(
         'hasIdentity' => $hasIdentity,

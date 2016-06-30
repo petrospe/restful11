@@ -33,8 +33,6 @@ class Acl extends ZendAcl
         $this->addResource('/');
         $this->addResource('/login');
         $this->addResource('/logout');
-//        $this->addResource('/member');
-//        $this->addResource('/admin');
         $this->addResource('/tasks');
         $this->addResource('/task');
         $this->addResource('/task/:id/:jsondata');
@@ -48,12 +46,10 @@ class Acl extends ZendAcl
         // APPLICATION PERMISSIONS
         // Now we allow or deny a role's access to resources.
         // The third argument is 'privilege'. In Slim Auth privilege == HTTP method
-//        $this->allow('guest', '/', $this->defaultPrivilege);
+        $this->allow('guest', '/', $this->defaultPrivilege);
         $this->allow('guest', '/login', array('GET', 'POST'));
         $this->allow('guest', '/logout', $this->defaultPrivilege);
 
-//        $this->allow('member', '/member', $this->defaultPrivilege);
-        $this->allow('member', '/', $this->defaultPrivilege);
         $this->allow('member', '/tasks', $this->defaultPrivilege);
         $this->allow('member', '/task', array('GET', 'POST'));
         $this->allow('member', '/task/:id/:jsondata', array('GET', 'PUT'));

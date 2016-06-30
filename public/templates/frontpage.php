@@ -34,14 +34,15 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="tasks"><span class="glyphicon glyphicon-calendar"></span> Tasks</a>
+                                <a href="tasks" class="btn <?php echo $memberClass; ?>"><span class="glyphicon glyphicon-calendar"></span> Tasks</a>
                             </li>
                             <li>
-                                <a href="users"><span class="glyphicon glyphicon-user"></span> Users</a>
+                                <a href="users" class="btn <?php echo $adminClass; ?>"><span class="glyphicon glyphicon-th-list"></span> Users</a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                              <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            <li style="display: block;color: #777;box-sizing: border-box;padding: 15px;"><span class="glyphicon glyphicon-user"></span> <?php echo $identity["username"]; ?></li>
+                            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </ul>
                     </div>
                 </div>
