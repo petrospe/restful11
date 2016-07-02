@@ -6,6 +6,7 @@
                 <div class="form-group">
                     <h2>Please sign in</h2>
                 </div>
+                <div id="loginerror" title="loginerror" style="display:none;"></div>
                 <div class="form-group">
                     <label for="inputUsername" class="sr-only">Username</label>
                     <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
