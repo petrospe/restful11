@@ -14,3 +14,10 @@
         </div>
     </div>
 </div>
+<ul class="nav pull-right scroll-top">
+    <li>
+        <a title="Scroll to top" onclick=" window.scrollTo(0,0)">
+            <i class="glyphicon glyphicon-chevron-up"></i>
+        </a>
+    </li>
+</ul>

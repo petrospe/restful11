@@ -1,0 +1,28 @@
+<!-- Included file in frontpage template-->
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form class="form-horizontal" name="login" id="login" method="post">
+                <div class="form-group">
+                    <h2>Please sign in</h2>
+                </div>
+                <div class="form-group">
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

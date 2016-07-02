@@ -11,11 +11,12 @@
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <!--FullCalendar Dependencies-->
-        <?php if(!empty($tasks)){
-            echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css'>\n";
-            echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css' media='print'>\n";
-        }
+        <?php
+            /* FullCalendar cascade styles */
+            if(!empty($tasks)){
+                echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.css'>\n";
+                echo "<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.print.css' media='print'>\n";
+            }
         ?>
     </head>
     <body>
@@ -41,8 +42,8 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li style="display: block;color: #777;box-sizing: border-box;padding: 15px;"><span class="glyphicon glyphicon-user"></span> <?php echo $identity["username"]; ?></li>
-                            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            <li class="identity"><?php echo $hasIdentity?"<span class='glyphicon glyphicon-user'></span>":"" ?> <?php echo $identity["username"]; ?></li>
+                            <li><?php echo $hasIdentity?"<a href='logout' class='btn'><span class='glyphicon glyphicon-log-out'></span> Logout</a>":"<a href='login' class='btn'><span class='glyphicon glyphicon-log-in'></span> Login</a>" ?></li>
                         </ul>
                     </div>
                 </div>
@@ -58,14 +59,10 @@
             if(!empty($users)){
                 echo $users;
             }
+            if(!empty($login)){
+                echo $login;
+            }
             ?>
-            <ul class="nav pull-right scroll-top">
-                <li>
-                    <a title="Scroll to top" onclick=" window.scrollTo(0,0)">
-                        <i class="glyphicon glyphicon-chevron-up"></i>
-                    </a>
-                </li>
-            </ul>
             <div>
             <hr>
                 <footer>

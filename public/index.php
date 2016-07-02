@@ -28,6 +28,12 @@ $app = new \Slim\slim(array(
 
 // Configure Slim Auth components
 $validator = new PasswordValidator();
+$dsn = 'mysql:host=localhost;dbname=B63Xy47C;charset=utf8';
+$options = array(
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+    );
+$db = new \PDO($dsn, 'hX239y6u', '5aXks8UXXk',$options);
 $adapter = new PdoAdapter(getDb(), 'users', 'username', 'password', $validator);
 $acl = new lib\Acl();
 
@@ -44,40 +50,13 @@ $authBootstrap = new Bootstrap($app, $adapter, $acl);
 $authBootstrap->setStorage($storage);
 $authBootstrap->bootstrap();
 
-// Handle the possible 403 the middleware can throw
-$app->error(function (\Exception $e) use ($app) {
-    if ($e instanceof HttpForbiddenException) {
-        return $app->render('403.php', array('e' => $e), 403);
-    }
-
-    if ($e instanceof HttpUnauthorizedException) {
-        return $app->redirectTo('login');
-    }
-
-    // You should handle other exceptions here, not throw them
-    throw $e;
-});
-// Handle the possible 401 the middleware can throw
-$app->error(function (\Exception $e) use ($app) {
-    if ($e instanceof HttpForbiddenException) {
-        return $app->render('401.php', array('e' => $e), 401);
-    }
-
-    if ($e instanceof HttpUnauthorizedException) {
-        return $app->redirectTo('login');
-    }
-
-    // You should handle other exceptions here, not throw them
-    throw $e;
-});
-
 // Grabbing a few things I want in each view
 $app->hook('slim.before.dispatch', function () use ($app) {
     $hasIdentity = $app->auth->hasIdentity();
     $identity = $app->auth->getIdentity();
     $role = ($hasIdentity) ? $identity['role'] : 'guest';
-    $memberClass = ($role == 'guest') ? 'disabled' : '';
-    $adminClass = ($role != 'admin') ? 'disabled' : '';
+    $memberClass = ($role == 'guest') ? 'hide' : '';
+    $adminClass = ($role != 'admin') ? 'hide' : '';
 
     $data = array(
         'hasIdentity' => $hasIdentity,
@@ -142,8 +121,12 @@ $app->map('/login', function () use ($app) {
             $app->flashNow('error', $messages[0]);
         }
     }
-
-    $app->render('login.php', array('username' => $username));
+    
+    $data = array(
+        'login' => file_get_contents('templates/login.inc.php'),
+    );
+    $app->render('frontpage.php', $data, array('username' => $username));
+    
 })->via('GET', 'POST')->name('login');
 
 $app->get('/logout', function () use ($app) {
@@ -151,12 +134,8 @@ $app->get('/logout', function () use ($app) {
         $app->auth->clearIdentity();
     }
 
-    $app->redirect('/restful11/public/login');
+    $app->redirect('/restful11/public/');
 });
-
-//$app->get('/login', function () use ($app) {
-//    $app->render('login.php');
-//});
 
 $app->run();
 /**

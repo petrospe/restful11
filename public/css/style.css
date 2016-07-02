@@ -16,3 +16,14 @@ body {
   margin-bottom: 20px;
 }
 
+ul.nav a:hover { 
+  background-color: #eee !important; 
+  color: #0088cc !important;
+}
+
+.identity {
+    display: block;
+    color: #777;
+    box-sizing: border-box;
+    padding: 15px;
+}
