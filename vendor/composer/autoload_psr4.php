@@ -12,5 +12,6 @@ return array(
     'Zend\\Hydrator\\' => array($vendorDir . '/zendframework/zend-hydrator/src'),
     'Zend\\EventManager\\' => array($vendorDir . '/zendframework/zend-eventmanager/src'),
     'Zend\\Authentication\\' => array($vendorDir . '/zendframework/zend-authentication/src'),
+    'Slim\\Views\\' => array($vendorDir . '/slim/views'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
 );

@@ -21,6 +21,10 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
             'Zend\\EventManager\\' => 18,
             'Zend\\Authentication\\' => 20,
         ),
+        'S' => 
+        array (
+            'Slim\\Views\\' => 11,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
@@ -52,6 +56,10 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-authentication/src',
         ),
+        'Slim\\Views\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/views',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -64,6 +72,13 @@ class ComposerStaticInit22666052fd1167d346ba890f930a66e2
             'cli' => 
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
+            ),
+        ),
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
         'S' => 

@@ -22,7 +22,7 @@ require '../lib/Acl.php';
 //$app = new \Slim\Slim((["settings" => $config]));
 $app = new \Slim\slim(array(
             'mode' => 'developement',
-            'templates.path' => './templates',
+            'templates.path' => 'templates',
             'debug' => true
             ));
 
@@ -76,6 +76,22 @@ $app->container->singleton('log', function () {
     return $log;
 });
 
+// Prepare view
+$app->view(new \Slim\Views\Twig());
+$app->view->parserOptions = array(
+    'charset' => 'utf-8',
+    'cache' => realpath('templates/cache'),
+    'auto_reload' => true,
+    'strict_variables' => false,
+    'autoescape' => true,
+    'debug' => true,
+);
+
+$app->view->parserExtensions = array(
+    new \Slim\Views\TwigExtension(),
+    new \Twig_Extension_Debug(),
+);
+
 $app->get('/', function () use ($app) {
     $data = array(
         "intro" =>  "<div>
@@ -87,21 +103,19 @@ $app->get('/', function () use ($app) {
                         </div>
                     </div>",
     );
-    $app->render('frontpage.php',$data);
+    $app->render('frontpage.twig',$data);
 });
 
 $app->get('/tasks', function () use ($app) {
-    $data = array(
-        'tasks' => file_get_contents('templates/tasks.inc.php'),
-    );
-    $app->render('frontpage.php',$data);
+//    $data = array(
+//        'tasks' => file_get_contents('templates/tasks.twig'),
+//    );
+//    $app->render('frontpage.twig',$data);
+    $app->render('tasks.twig');
 });
 
 $app->get('/users', function () use ($app) {
-    $data = array(
-        'users' => file_get_contents('templates/users.inc.php'),
-    );
-    $app->render('frontpage.php',$data);
+    $app->render('users.twig');
 });
 
 // Login route MUST be named 'login'
@@ -122,11 +136,7 @@ $app->map('/login', function () use ($app) {
         }
     }
     
-    $data = array(
-        'login' => file_get_contents('templates/login.inc.php'),
-    );
-    $app->render('frontpage.php', $data, array('username' => $username));
-    
+    $app->render('login.twig', array('username' => $username));
 })->via('GET', 'POST')->name('login');
 
 $app->get('/logout', function () use ($app) {

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'cli' => array($vendorDir . '/wp-cli/php-cli-tools/lib'),
+    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Slim' => array($vendorDir . '/slim/slim'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'JeremyKendall\\Slim\\Auth\\' => array($vendorDir . '/jeremykendall/slim-auth/src'),
