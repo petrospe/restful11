@@ -110,6 +110,8 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
                                 <a target=\"_blank\" href=\"http://fullcalendar.io/\">FullCalendar</a>
                                 |
                                 <a target=\"_blank\" href=\"https://vitalets.github.io/x-editable/\">X-editable</a>
+                                |
+                                <a target=\"_blank\" href=\"http://twig.sensiolabs.org/\"><img src=\"http://twig.sensiolabs.org//favicon.ico\" width=\"15px\"> Twig</a>
                             </p>
                         </div>
                     </div>
@@ -122,9 +124,9 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
         <script src=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js\"></script>
         <script type=\"text/javascript\" src=\"js/scripts.js\"></script>
         ";
-        // line 79
+        // line 81
         $this->displayBlock('javascript', $context, $blocks);
-        // line 80
+        // line 82
         echo "    </body>
 </html>";
     }
@@ -140,7 +142,7 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
         echo " ";
     }
 
-    // line 79
+    // line 81
     public function block_javascript($context, array $blocks = array())
     {
         echo " ";
@@ -158,7 +160,7 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
 
     public function getDebugInfo()
     {
-        return array (  144 => 79,  138 => 50,  133 => 14,  128 => 80,  126 => 79,  96 => 51,  94 => 50,  90 => 49,  84 => 45,  80 => 43,  73 => 40,  71 => 39,  64 => 35,  58 => 32,  39 => 15,  37 => 14,  22 => 1,);
+        return array (  146 => 81,  140 => 50,  135 => 14,  130 => 82,  128 => 81,  96 => 51,  94 => 50,  90 => 49,  84 => 45,  80 => 43,  73 => 40,  71 => 39,  64 => 35,  58 => 32,  39 => 15,  37 => 14,  22 => 1,);
     }
 }
 /* <!-- Frontpage Template file -->*/
@@ -228,6 +230,8 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
 /*                                 <a target="_blank" href="http://fullcalendar.io/">FullCalendar</a>*/
 /*                                 |*/
 /*                                 <a target="_blank" href="https://vitalets.github.io/x-editable/">X-editable</a>*/
+/*                                 |*/
+/*                                 <a target="_blank" href="http://twig.sensiolabs.org/"><img src="http://twig.sensiolabs.org//favicon.ico" width="15px"> Twig</a>*/
 /*                             </p>*/
 /*                         </div>*/
 /*                     </div>*/
