@@ -23,7 +23,12 @@ require '../lib/Acl.php';
 $app = new \Slim\slim(array(
             'mode' => 'developement',
             'templates.path' => 'templates',
-            'debug' => true
+            'debug' => true,
+            'cookies.lifetime' => '20 minutes',
+            'cookies.encrypt' => true,
+            'cookies.secret_key' => '5Zx56VOegtEOrML',
+            'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+            'cookies.cipher_mode' => MCRYPT_MODE_CBC
             ));
 
 // Configure Slim Auth components
@@ -34,7 +39,7 @@ $options = array(
         \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
     );
 $db = new \PDO($dsn, 'hX239y6u', '5aXks8UXXk',$options);
-$adapter = new PdoAdapter(getDb(), 'users', 'username', 'password', $validator);
+$adapter = new PdoAdapter($db, 'users', 'username', 'password', $validator);
 $acl = new lib\Acl();
 
 $sessionConfig = new SessionConfig();

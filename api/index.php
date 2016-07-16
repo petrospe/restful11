@@ -108,6 +108,7 @@
             $app->response()->header('Content-Type', 'application/json');
             $user = $app->request()->post();
             $result = $db->users->insert($user);
+            updatePassword($result["id"],$result["password"]);
             echo json_encode(array(
                 "id" => $result["id"],
                 "message" => "Add user successfully"
@@ -292,3 +293,17 @@
 
        return $db;
    }
+
+    function updatePassword($key, $value)
+    {
+        // Encrypt user passwords
+        $dsn = 'mysql:host=localhost;dbname=B63Xy47C;charset=utf8';
+        $options = array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            );
+        $db = new \PDO($dsn, 'hX239y6u', '5aXks8UXXk',$options);
+        $passwordEncrypt = "UPDATE users SET password = :password WHERE id = ".$key."";
+        $passwordEncrypt = $db->prepare($passwordEncrypt);
+        $passwordEncrypt->execute(array('password' => password_hash($value, PASSWORD_DEFAULT)));
+    }
