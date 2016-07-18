@@ -105,7 +105,7 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
                                 |
                                 <a target=\"_blank\" href=\"https://jquery.com/\"><img src=\"https://jquery.com/favicon.ico\" width=\"15px\"> Jquery</a>
                                 |
-                                <a target=\"_blank\" href=\"http://www.slimframework.com/\">Slim Framework</a>
+                                <a target=\"_blank\" href=\"http://www.slimframework.com/\"><img src=\"http://www.slimframework.com/assets/images/favicon.png\" width=\"15px\"> Slim Framework</a>
                                 |
                                 <a target=\"_blank\" href=\"http://fullcalendar.io/\">FullCalendar</a>
                                 |
@@ -225,7 +225,7 @@ class __TwigTemplate_140c9b1cdabde70e9baa16fc0a547b38681f0d5e465752b3666570c3dc0
 /*                                 |*/
 /*                                 <a target="_blank" href="https://jquery.com/"><img src="https://jquery.com/favicon.ico" width="15px"> Jquery</a>*/
 /*                                 |*/
-/*                                 <a target="_blank" href="http://www.slimframework.com/">Slim Framework</a>*/
+/*                                 <a target="_blank" href="http://www.slimframework.com/"><img src="http://www.slimframework.com/assets/images/favicon.png" width="15px"> Slim Framework</a>*/
 /*                                 |*/
 /*                                 <a target="_blank" href="http://fullcalendar.io/">FullCalendar</a>*/
 /*                                 |*/
