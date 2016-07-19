@@ -1,6 +1,10 @@
 # Restful taskmanager app
 
-The main perpose is to administer tasks via calendar. Project contains two differrent objects, api and front-end. The api and front-end render are based on Slim Framework. The front-end use the api for data manipulation. It has application error log system.
+The main perpose is to administer tasks via calendar. Project contains two differrent sections, api and front-end, into one application. The api and front-end render are based on Slim Framework. The front-end use the api for data manipulation. It has also application error log system. The authentication is based on [jeremykentall/slim-auth] 
+
+### Installation
+Fill out the file **settings.php** with the required variables.
+Run `composer update`. Create the db from file **schema.sql** at /lib/db and you are ready! Login with **admin admin** or **member member**
 
 ### Structure
 /api -> Contain the api which initialise the data routes.  
@@ -23,3 +27,4 @@ The app uses a number of open source projects to work properly:
 [Twitter Bootstrap]:http://twitter.github.com/bootstrap/
 [jQuery]:http://jquery.com
 [Composer]:https://getcomposer.org/
+[jeremykentall/slim-auth]:https://github.com/jeremykendall/slim-auth/tree/slim-2.x

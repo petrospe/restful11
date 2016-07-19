@@ -17,7 +17,7 @@ use Zend\Session\Config\SessionConfig;
 use Zend\Session\SessionManager;
 
 require '../lib/Acl.php';
-
+require '../settings.php';
 //$config['displayErrorDetails'] = true;
 //$app = new \Slim\Slim((["settings" => $config]));
 $app = new \Slim\slim(array(
@@ -33,19 +33,19 @@ $app = new \Slim\slim(array(
 
 // Configure Slim Auth components
 $validator = new PasswordValidator();
-$dsn = 'mysql:host=localhost;dbname=B63Xy47C;charset=utf8';
+$dsn = 'mysql:host='.$hostname.';dbname='.$database.';charset=utf8';
 $options = array(
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
     );
-$db = new \PDO($dsn, 'hX239y6u', '5aXks8UXXk',$options);
+$db = new \PDO($dsn, $dbuser, $dbpassword,$options);
 $adapter = new PdoAdapter($db, 'users', 'username', 'password', $validator);
 $acl = new lib\Acl();
 
 $sessionConfig = new SessionConfig();
 $sessionConfig->setOptions(array(
     'remember_me_seconds' => 60 * 60 * 24 * 7,
-    'name' => 'restful11',
+    'name' => $applicationFolderName,
 ));
 $sessionManager = new SessionManager($sessionConfig);
 $sessionManager->rememberMe();
@@ -134,7 +134,7 @@ $app->map('/login', function () use ($app) {
         $result = $app->authenticator->authenticate($username, $password);
 
         if ($result->isValid()) {
-            $app->redirect('/restful11/public/');
+            $app->redirect('.');
         } else {
             $messages = $result->getMessages();
             $app->flashNow('error', $messages[0]);
@@ -149,7 +149,7 @@ $app->get('/logout', function () use ($app) {
         $app->auth->clearIdentity();
     }
 
-    $app->redirect('/restful11/public/');
+    $app->redirect('.');
 });
 
 $app->run();

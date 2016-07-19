@@ -101,7 +101,6 @@ $(document).ready(function() {
                         }
                     }
                 }),
-//              $.post(pathArray[0]+'/restful11/api/index.php/task'),
                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
             }
             $('#calendar').fullCalendar('unselect');

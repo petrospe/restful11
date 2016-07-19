@@ -19,6 +19,7 @@
     use Zend\Session\SessionManager;
 
     require '../lib/Acl.php';
+    require '../settings.php';
     
     $app = new \Slim\slim(array(
             'mode' => 'developement',
@@ -28,13 +29,13 @@
     
     // Configure Slim Auth components
     $validator = new PasswordValidator();
-    $adapter = new PdoAdapter(getDb(), 'uses', 'username', 'password', $validator);
+    $adapter = new PdoAdapter(getDb(), 'users', 'username', 'password', $validator);
     $acl = new lib\Acl();
 
     $sessionConfig = new SessionConfig();
     $sessionConfig->setOptions(array(
         'remember_me_seconds' => 60 * 60 * 24 * 7,
-        'name' => 'restful11',
+        'name' => $applicationFolderName,
     ));
     $sessionManager = new SessionManager($sessionConfig);
     $sessionManager->rememberMe();
@@ -46,7 +47,7 @@
 
     require '../lib/notorm/NotORM.php';
 
-    $pdo = new PDO('mysql:dbhost=localhost;dbname=B63Xy47C;charset=utf8','hX239y6u','5aXks8UXXk');
+    $pdo = new PDO('mysql:dbhost='.$hostname.';dbname='.$database.';charset=utf8',$dbuser,$dbpassword);
     $db = new NotORM($pdo);
 
 //    $app->get('/',function(){
@@ -300,12 +301,12 @@
     function updatePassword($key, $value)
     {
         // Encrypt user passwords
-        $dsn = 'mysql:host=localhost;dbname=B63Xy47C;charset=utf8';
+        $dsn = 'mysql:host='.$hostname.';dbname='.$database.';charset=utf8';
         $options = array(
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
             );
-        $db = new \PDO($dsn, 'hX239y6u', '5aXks8UXXk',$options);
+        $db = new \PDO($dsn, $dbuser, $dbpassword, $options);
         $passwordEncrypt = "UPDATE users SET password = :password WHERE id = ".$key."";
         $passwordEncrypt = $db->prepare($passwordEncrypt);
         $passwordEncrypt->execute(array('password' => password_hash($value, PASSWORD_DEFAULT)));
