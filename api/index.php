@@ -127,7 +127,7 @@
             if($user){
                 $result = $user->update($updateUserData);
                 if($user->update(['password' => $user->update($updateUserData)])){
-                    updatePassword($id,$user->update($updateUserData));
+                    updatePassword($id,$updateUserData["password"]);
                 }
                 echo json_encode(array(
                     "status" => (bool)$result,
