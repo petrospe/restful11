@@ -18,8 +18,7 @@ use Zend\Session\SessionManager;
 
 require '../lib/Acl.php';
 require '../settings.php';
-//$config['displayErrorDetails'] = true;
-//$app = new \Slim\Slim((["settings" => $config]));
+
 $app = new \Slim\slim(array(
             'mode' => 'developement',
             'templates.path' => 'templates',
@@ -33,13 +32,7 @@ $app = new \Slim\slim(array(
 
 // Configure Slim Auth components
 $validator = new PasswordValidator();
-$dsn = 'mysql:host='.$hostname.';dbname='.$database.';charset=utf8';
-$options = array(
-        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-    );
-$db = new \PDO($dsn, $dbuser, $dbpassword,$options);
-$adapter = new PdoAdapter($db, 'users', 'username', 'password', $validator);
+$adapter = new PdoAdapter(getDb(), 'users', 'username', 'password', $validator);
 $acl = new lib\Acl();
 
 $sessionConfig = new SessionConfig();
@@ -112,10 +105,6 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/tasks', function () use ($app) {
-//    $data = array(
-//        'tasks' => file_get_contents('templates/tasks.twig'),
-//    );
-//    $app->render('frontpage.twig',$data);
     $app->render('tasks.twig');
 });
 
