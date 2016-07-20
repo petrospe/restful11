@@ -6,7 +6,6 @@
     ini_set('display_startup_errors', 1);
     
     require '../vendor/autoload.php';
-
     \Slim\Slim::registerAutoloader();
 
     use JeremyKendall\Password\PasswordValidator;
