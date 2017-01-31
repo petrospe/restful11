@@ -187,9 +187,13 @@
         try{
             $app->response()->header('Content-Type', 'application/json');
             $task = $app->request()->post();
-            $result = $db->tasks->insert($task);
+            $userid = $app->auth->getIdentity();
+            $userArray = array("userid"=>$userid["id"]);
+            $taskUser = array_merge($task,$userArray);
+            $result = $db->tasks->insert($taskUser);
             echo json_encode(array(
                 "id" => $result["id"],
+                "userid" => $result["userid"],
                 "message" => "Add task successfully"
                 ));
         }
