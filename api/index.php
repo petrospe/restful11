@@ -104,7 +104,9 @@
             $app->response()->header('Content-Type', 'application/json');
             $user = $app->request()->post();
             $result = $db->users->insert($user);
-            updatePassword($result["id"],$result["password"]);
+            if($result["password"]){
+                updatePassword($result["id"],$result["password"]);
+            }
             echo json_encode(array(
                 "id" => $result["id"],
                 "message" => "Add user successfully"
@@ -172,7 +174,8 @@
                     'title' => $task['title'],
                     'description' => $task['description'],
                     'start' => $task['start'],
-                    'end' => $task['end']
+                    'end' => $task['end'],
+                    'user' => $task->users['username']
                 );
             }
             $app->response()->header('Content-Type', 'application/json');
@@ -188,12 +191,12 @@
             $app->response()->header('Content-Type', 'application/json');
             $task = $app->request()->post();
             $userid = $app->auth->getIdentity();
-            $userArray = array("userid"=>$userid["id"]);
+            $userArray = array("users_id"=>$userid["id"]);
             $taskUser = array_merge($task,$userArray);
             $result = $db->tasks->insert($taskUser);
             echo json_encode(array(
                 "id" => $result["id"],
-                "userid" => $result["userid"],
+                "users_id" => $result["users_id"],
                 "message" => "Add task successfully"
                 ));
         }

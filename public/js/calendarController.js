@@ -11,6 +11,12 @@ $(document).ready(function() {
                     $('<h4/>').append('Edit Task')
                 ).addClass('modal-header'),
                 $('<div/>').append(
+                    $('<label/>').append('User'),
+                    $('<input/>', {
+                        type: 'text',
+                        id: 'user',
+                        disabled: 'disabled'
+                    }).addClass('form-control'),
                     $('<label/>').append('Title'),
                     $('<input/>', {
                         type: 'text',
@@ -107,6 +113,7 @@ $(document).ready(function() {
         },
 // Update task and delete
         eventClick: function(calEvent, jsEvent, view) {
+            $('#user').val(calEvent.user);
             $('#title').val(calEvent.title);
             $('#description').val(calEvent.description);
             $('#start').val((calEvent.start).format('YYYY-MM-DD HH:mm'));
