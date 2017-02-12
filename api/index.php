@@ -45,7 +45,7 @@
 
     require '../lib/notorm/NotORM.php';
 
-    $pdo = new PDO('mysql:dbhost='.$hostname.';dbname='.$database.';charset=utf8',$dbuser,$dbpassword);
+    $pdo = new PDO('mysql:host='.$hostname.';dbname='.$database.';charset=utf8',$dbuser,$dbpassword);
     $db = new NotORM($pdo);
 
     /* Get users */
