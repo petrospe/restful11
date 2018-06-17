@@ -249,6 +249,138 @@
             echo $e->getMessage();
         }
     });
+    /* Get projects */
+    $app->get('/projects', function () use ($app, $db) {
+        try{
+            $projects = array();
+            foreach ($db->projects() as $project) {
+                $projects[]  = array(
+                    'id' => $project['id'],
+                    'title' => $project['title'],
+                    'description' => $project['description'],
+                    'image' => $project['image'],
+                    'createdate' => $project['createdate'],
+                    'modificationdate' => $project['modificationdate'],
+                    'user' => $project->users['username']
+                );
+            }
+            $app->response()->header('Content-Type', 'application/json');
+            echo json_encode($projects);
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Project Insert */
+    $app->post('/project', function () use($app, $db) {
+        try{
+            $app->response()->header('Content-Type', 'application/json');
+            $project = $app->request()->post();
+            $userid = $app->auth->getIdentity();
+            $userArray = array("users_id"=>$userid["id"]);
+            $projectUser = array_merge($project,$userArray);
+            $result = $db->projects->insert($projectUser);
+            echo json_encode(array(
+                "id" => $result["id"],
+                "users_id" => $result["users_id"],
+                "message" => "Add project successfully"
+                ));
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Get project id */
+    $app->get('/project/:id', function ($id) use ($app, $db) {
+        try{
+            $app->response()->header('Content-Type', 'application/json');
+            $project = $db->projects()->where('id', $id);
+            if ($data = $project->fetch()) {
+                echo json_encode(array(
+                    "id" => $data["id"],
+                    "title" => $data["title"],
+                    "description" => $data["description"],
+                    "image" => $data["image"],
+                    "createdate" => $data["createdate"],
+                    "modificationdate" => $data["modificationdate"],
+                    "user" => $data->users['username']
+                    ));
+            }else{
+                echo json_encode(array(
+                    "status" => false,
+                    "message" => "Project ID $id does not exist"
+                    ));
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Project Update */
+    $app->put('/project/:id/:jsondata', function ($id, $jsondata) use ($app, $db) {
+        try{
+            $updateProjectData = json_decode($jsondata, true);
+            $app->response()->header('Content-Type', 'application/json');
+            $project = $db->projects()->where('id', $id);
+            if($project){
+                $result = $project->update($updateProjectData);
+                echo json_encode(array(
+                    "status" => (bool)$result,
+                    "message" => "Project updated successfully"
+                ));
+            }else{
+                echo json_encode(array(
+                    "status" => false,
+                    "message" => "Project id $id does not exist"
+                ));
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Project Delete */
+    $app->delete('/project/:id', function ($id) use($app, $db) {
+        try{
+            $app->response()->header('Content-Type', 'application/json');
+            $project = $db->projects()->where('id', $id);
+            if($project->fetch()){
+                $result = $project->delete();
+                echo json_encode(array(
+                    "status" => true,
+                    "message" => "Task deleted successfully"
+                ));
+            }else{
+                echo json_encode(array(
+                    "status" => false,
+                    "message" => "Task id $id does not exist"
+                ));
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
+    /* Get images */
+    $app->get('/images', function () use ($app, $db) {
+        try{
+            $images = array();
+            chdir("../public/images/projects");
+            $d = dir(getcwd());
+            $blacklist = array('.', '..', '.htaccess');
+            while (false !== ($entry = $d->read())) {
+                if (!in_array($entry, $blacklist)){
+                     $images[] = $entry;
+                }
+            }
+            $app->response()->header('Content-Type', 'application/json');
+            echo json_encode($images);
+            $d->close();
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+    });
     $app->run();
 
     function updatePassword($key, $value)

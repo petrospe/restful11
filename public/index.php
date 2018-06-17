@@ -109,6 +109,10 @@ $app->get('/tasks', function () use ($app) {
     $app->render('tasks.twig');
 });
 
+$app->get('/projects', function () use ($app) {
+    $app->render('projects.twig');
+});
+
 $app->get('/users', function () use ($app) {
     $app->render('users.twig');
 });

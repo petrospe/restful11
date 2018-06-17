@@ -24,9 +24,25 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `title` varchar(100) NOT NULL,
   `description` text,
   `start` datetime NOT NULL,
-  `end` datetime DEFAULT NULL
+  `end` datetime DEFAULT NULL,
+  `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+CREATE TABLE `projects` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `createdate` datetime NOT NULL,
+  `modificationdate` datetime NOT NULL,
+  `users_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

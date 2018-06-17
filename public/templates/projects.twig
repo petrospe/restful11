@@ -1,0 +1,26 @@
+{% extends 'frontpage.twig' %}
+{% block content %}
+<div id="projects">
+    <div class="page-header">
+        <h1>Cards <small>System projects</small></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+           <div id="projectcards"></div>
+           <div id="projectadd"></div>
+           <div id="projectdialog" title="Project" style="display:none"></div>
+        </div>
+    </div>
+</div>
+<ul class="nav pull-right scroll-top">
+    <li>
+        <a title="Scroll to top" onclick=" window.scrollTo(0,0)">
+            <i class="glyphicon glyphicon-chevron-up"></i>
+        </a>
+    </li>
+</ul>
+{% endblock %}
+{% block javascript %}
+<script type='text/javascript' src='js/projectController.js'></script>
+<script type='text/javascript' src='js/readmore.js'></script>
+{% endblock %}

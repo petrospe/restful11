@@ -1,5 +1,5 @@
-/* Menu Scripts */
 $(document).ready(function () {
+    /* Menu Scripts */
     var url = window.location;
     $('ul.nav a').filter(function() {
         return this.href == url;

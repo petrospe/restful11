@@ -37,6 +37,11 @@ class Acl extends ZendAcl
         $this->addResource('/task');
         $this->addResource('/task/:id/:jsondata');
         $this->addResource('/task/:id');
+        $this->addResource('/projects');
+        $this->addResource('/project');
+        $this->addResource('/project/:id/:jsondata');
+        $this->addResource('/project/:id');
+        $this->addResource('/images');
         $this->addResource('/users');
         $this->addResource('/user/:id');
         $this->addResource('/user');
@@ -54,6 +59,12 @@ class Acl extends ZendAcl
         $this->allow('member', '/task', array('GET', 'POST'));
         $this->allow('member', '/task/:id/:jsondata', array('GET', 'PUT'));
         $this->allow('member', '/task/:id', array('GET', 'DELETE'));
+        
+        $this->allow('member', '/projects', $this->defaultPrivilege);
+        $this->allow('member', '/project', array('GET', 'POST'));
+        $this->allow('member', '/project/:id/:jsondata', array('GET', 'PUT'));
+        $this->allow('member', '/project/:id', array('GET', 'DELETE'));
+        $this->allow('member', '/images', $this->defaultPrivilege);
 
         // This allows admin access to everything
         $this->allow('admin');
