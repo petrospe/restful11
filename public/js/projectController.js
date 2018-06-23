@@ -1,6 +1,6 @@
 // Path initialization
 var pathArray = window.location.pathname.split( '/' );
-// Delete user
+// Delete project
 function DeleteProject(d) {
     //confirm('Delete '+d+' ?')
     var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+d;
@@ -19,7 +19,7 @@ var cardurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/projects';
 var imagepathurl = pathArray[0]+'/'+pathArray[1]+'/public/images/projects/';
 // Modal Window
 $(document).ready(function() {
-    $('#projectdialog').append(
+    $('#projectdialogedit').append(
         $('<div/>').append(
             $('<form/>').append(
                 $('<div/>').append(
@@ -83,8 +83,70 @@ $(document).ready(function() {
                 ).addClass('modal-content')
             ).addClass('project-modal-form')
         ).addClass('modal-dialog')
+    ).addClass('modal fade');
+    $('#projectdialogadd').append(
+        $('<div/>').append(
+            $('<form/>').append(
+                $('<div/>').append(
+                    $('<div/>').append(
+                        $('<h4/>').append('Add Project')
+                    ).addClass('modal-header'),
+                    $('<div/>').append(
+                       $('<label/>').append('User'),
+                        $('<input/>', {
+                            type: 'text',
+                            id: 'user-add',
+                            disabled: 'disabled'
+                        }).addClass('form-control'),
+                        $('<label/>').append('Title'),
+                        $('<input/>', {
+                            type: 'text',
+                            id: 'title-add',
+                            placeholder: 'Title'
+                        }).addClass('form-control'),
+                        $('<label/>').append('Description'),
+                        $('<textarea/>', {
+                            row: '4',
+                            cols: '50',
+                            id: 'description-add',
+                            placeholder: 'Description'
+                        }).addClass('form-control'),
+                        $('<label/>').append('Image'),
+                        $('<select/>', {
+                            id: 'image-add'
+                        }).addClass('form-control'),
+                        $('<label/>').append('Create Date'),
+                        $('<input/>', {
+                            type: 'text',
+                            id: 'createdate-add',
+                            disabled: 'disabled'
+                        }).addClass('form-control'),
+                        $('<label/>').append('Modification Date'),
+                        $('<input/>', {
+                            type: 'text',
+                            id: 'modificationdate-add',
+                            disabled: 'disabled'
+                        }).addClass('form-control')
+                    ).addClass('modal-body'),
+                    $('<div/>').append(
+                        $('<button/>', {
+                            type: 'submit',
+                            text: 'Close',
+                            onclick: 'projectInsertClose();',
+                        }).addClass('btn btn-default'),
+                        $('<button/>', {
+                            type: 'submit',
+                            id: 'insert',
+                            text: 'Insert',
+                            onclick: 'projectInsertSubmit();'
+                        }).addClass('btn btn-success')
+                    ).addClass('modal-footer')
+                ).addClass('modal-content')
+            ).addClass('project-modal-form')
+        ).addClass('modal-dialog')
     ).addClass('modal fade')
 });
+// Get projects
 $.ajax({
     url: cardurl,
     type: 'GET',
@@ -123,7 +185,7 @@ $(document).on('click','.edit-project',function(){
         type: 'GET',
         dataType: "json",
         success: function (response){
-            $('#projectdialog').modal(
+            $('#projectdialogedit').modal(
                 $("#user").val(response.user),
                 $("#title").val(response.title),
                 $("#description").val(response.description),
@@ -131,7 +193,7 @@ $(document).on('click','.edit-project',function(){
                 $("#createdate").val(response.createdate),
                 $("#modificationdate").val(response.modificationdate),
                 $('#close').click(function(){
-                    $('#projectdialog').modal('hide');
+                    $('#projectdialogedit').modal('hide');
                 }),
                 $('#save').click(function(){
                     var dt = new Date($.now());
@@ -148,7 +210,7 @@ $(document).on('click','.edit-project',function(){
                          type: 'put',
                          async: false,
                          success:function(data){
-                             $('#projectdialog').modal('hide');
+                             $('#projectdialogedit').modal('hide');
                              location.reload();
                          },
                          error:function(){
@@ -164,7 +226,7 @@ $(document).on('click','.edit-project',function(){
                         type: 'DELETE',
                         async: false,
                         success:function(data){
-                            $('#projectdialog').modal('hide');
+                            $('#projectdialogedit').modal('hide');
                             location.reload();
                         },
                         error:function(){
@@ -179,7 +241,7 @@ $(document).on('click','.edit-project',function(){
         }
     });
 });
-
+// Get images
 $(document).ready(function() {
     $.ajax({
         url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/images',
@@ -190,7 +252,11 @@ $(document).ready(function() {
                 $("#image").append($('<option>', {
                     value: value,
                     text: value
-                }));
+                })),
+                $("#image-add").append($('<option>', {
+                    value: value,
+                    text: value
+                }))
             })
         },
         error:function(){
@@ -198,8 +264,42 @@ $(document).ready(function() {
         }
     });
 });
+// Add project
 $(document).on('click','#projectadd',function(){
-    $('#projectdialog').modal(
+    $('#projectdialogadd').modal(
         $('.project-modal-form')[0].reset()
     );
 });
+function projectInsertClose(){
+    $('#projectdialogadd').modal('hide');
+}
+function projectInsertSubmit() {
+    var inserturl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project';
+    var dt = new Date('yyyy-mm-dd hh:MM:ss');
+    if($('#title-add').val()==''){alert('Title field is required');}
+    else{
+        var projectinsert = {
+            title:$('#title-add').val(),
+            description:$('#description-add').val(),
+            image:$('#image-add').val(),            
+            createdate:dt,
+            modificationdate:dt
+        };
+        $.ajax({
+            url: inserturl,
+            type: 'POST',
+            async: false,
+            data: projectinsert,
+            datatype: 'json',
+            success:function(msg){
+                if(msg){
+                    alert('Project '+$('#title-add').val()+dt+' was added');
+                    window.location.href.split('#')[0];
+                    location.reload();
+                }else{
+                    alert('Project cannot added');
+                }
+            }
+        });
+    }
+}
