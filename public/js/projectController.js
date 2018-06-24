@@ -1,24 +1,11 @@
 // Path initialization
 var pathArray = window.location.pathname.split( '/' );
-// Delete project
-function DeleteProject(d) {
-    //confirm('Delete '+d+' ?')
-    var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+d;
-    $.ajax({
-        url: deleteurl,
-        type: 'DELETE',
-        async: false,
-        success:function(data){
-            alert('Deleted '+d+'');
-            $('#'+d).remove();
-        }
-    });
-}
 // Project card
 var cardurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/projects';
 var imagepathurl = pathArray[0]+'/'+pathArray[1]+'/public/images/projects/';
-// Modal Window
+// Modal Windows
 $(document).ready(function() {
+    // Edit Project modal
     $('#projectdialogedit').append(
         $('<div/>').append(
             $('<form/>').append(
@@ -84,6 +71,7 @@ $(document).ready(function() {
             ).addClass('project-modal-form')
         ).addClass('modal-dialog')
     ).addClass('modal fade');
+    // Add Project modal
     $('#projectdialogadd').append(
         $('<div/>').append(
             $('<form/>').append(
@@ -168,9 +156,7 @@ $.ajax({
     },
     complete: function(){
         $('#projectadd').append(
-            $('<a>',{
-                href: '#'
-            }).prepend(
+            $('<a>').prepend(
                 $('<img>',{
                     src:'images/add_circle_grey_192x192.png'
                 }).addClass('img-responsive center-block')
@@ -196,27 +182,31 @@ $(document).on('click','.edit-project',function(){
                     $('#projectdialogedit').modal('hide');
                 }),
                 $('#save').click(function(){
-                    var dt = new Date($.now());
-                    var projectupdate = {
-                         title:$('#title').val(),
-                         description:$('#description').val(),
-                         image:$('#image').val(),
-                         modificationdate:dt
-                     };
-                     var w = JSON.stringify(projectupdate);
-                     var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+x+'/'+w;
-                     $.ajax({
-                         url: updateurl,
-                         type: 'put',
-                         async: false,
-                         success:function(data){
-                             $('#projectdialogedit').modal('hide');
-                             location.reload();
-                         },
-                         error:function(){
-                             alert("Something went wrong");
-                         }
-                     });
+                    if($('#title').val()==''){
+                        alert('Title field is required');
+                    } else {
+                        var dt = getDatetime();
+                        var projectupdate = {
+                             title:$('#title').val(),
+                             description:$('#description').val(),
+                             image:$('#image').val(),
+                             modificationdate:dt
+                        };
+                        var w = JSON.stringify(projectupdate);
+                        var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+x+'/'+w;
+                        $.ajax({
+                            url: updateurl,
+                            type: 'put',
+                            async: false,
+                            success:function(data){
+                                $('#projectdialogedit').modal('hide');
+                                location.reload();
+                            },
+                            error:function(){
+                                alert("Something went wrong");
+                            }
+                        });
+                    }
                 }),
                 // Delete Project
                 $('#delete').click(function(){
@@ -275,9 +265,10 @@ function projectInsertClose(){
 }
 function projectInsertSubmit() {
     var inserturl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project';
-    var dt = new Date('yyyy-mm-dd hh:MM:ss');
-    if($('#title-add').val()==''){alert('Title field is required');}
-    else{
+    var dt = getDatetime();
+    if($('#title-add').val()==''){
+        alert('Title field is required');
+    }else{
         var projectinsert = {
             title:$('#title-add').val(),
             description:$('#description-add').val(),
@@ -291,10 +282,9 @@ function projectInsertSubmit() {
             async: false,
             data: projectinsert,
             datatype: 'json',
-            success:function(msg){
-                if(msg){
-                    alert('Project '+$('#title-add').val()+dt+' was added');
-                    window.location.href.split('#')[0];
+            success:function(response){
+                if(response){
+//                    alert('Project '+$('#title-add').val()+' was added');
                     location.reload();
                 }else{
                     alert('Project cannot added');
@@ -302,4 +292,28 @@ function projectInsertSubmit() {
             }
         });
     }
+}
+function getDatetime(){
+    var today = new Date();
+    var day = today.getDate() + "";
+    var month = (today.getMonth() + 1) + "";
+    var year = today.getFullYear() + "";
+    var hour = today.getHours() + "";
+    var minutes = today.getMinutes() + "";
+    var seconds = today.getSeconds() + "";
+
+    day = checkZero(day);
+    month = checkZero(month);
+    year = checkZero(year);
+    hour = checkZero(hour);
+    minutes = checkZero(minutes);
+    seconds = checkZero(seconds);
+
+    return (year+"-"+month+"-"+day+" "+hour+":"+minutes+":"+seconds);
+}
+function checkZero(data){
+  if(data.length == 1){
+    data = "0" + data;
+  }
+  return data;
 }
