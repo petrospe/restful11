@@ -165,6 +165,7 @@ $.ajax({
 });
 // Edit project
 $(document).on('click','.edit-project',function(){
+    getImages();
     var x = $(this).closest('a').attr('id');
     $.ajax({
         url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+x,
@@ -231,8 +232,15 @@ $(document).on('click','.edit-project',function(){
         }
     });
 });
+// Add project
+$(document).on('click','#projectadd',function(){
+    getImages();
+    $('#projectdialogadd').modal(
+        $('.project-modal-form')[0].reset()
+    );
+});
 // Get images
-$(document).ready(function() {
+function getImages(){
     $.ajax({
         url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/images',
         type: 'GET',
@@ -253,13 +261,7 @@ $(document).ready(function() {
             alert("Something went wrong");
         }
     });
-});
-// Add project
-$(document).on('click','#projectadd',function(){
-    $('#projectdialogadd').modal(
-        $('.project-modal-form')[0].reset()
-    );
-});
+}
 function projectInsertClose(){
     $('#projectdialogadd').modal('hide');
 }
