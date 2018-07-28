@@ -124,7 +124,7 @@
             $user = $db->users()->where('id', $id);
             if($user){
                 $result = $user->update($updateUserData);
-                if($user->update(['password' => $user->update($updateUserData)])){
+                if(!empty($updateUserData["password"])){
                     updatePassword($id,$updateUserData["password"]);
                 }
                 echo json_encode(array(
