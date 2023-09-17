@@ -2,6 +2,6 @@
 *
 # Except this file
 !.gitignore
-!/zendframework
-!/symfony
-!/slim
+!/zendframework/
+!/symfony/
+!/slim/
