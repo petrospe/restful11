@@ -1,7 +1,5 @@
-// Path initialization
-var pathArray = window.location.pathname.split( '/' );
 // Calendar tasks
-var calendarurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/tasks';
+var calendarurl ='/api/tasks';
 // Modal Window
 $(document).ready(function() {
     $('#taskdialog').append(
@@ -93,7 +91,7 @@ $(document).ready(function() {
 //                  allDay : false
                 };
                 $.ajax({
-                    url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/task',
+                    url: '/api/task',
                     type: 'POST',
                     async: false,
                     data: eventData,
@@ -129,7 +127,7 @@ $(document).ready(function() {
                 };
                 var w = JSON.stringify(taskupdate);
                 var d = calEvent.id;
-                var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
+                var updateurl = '/api/task/'+d+'/'+w;
                 $.ajax({
                     url: updateurl,
                     type: 'put',
@@ -141,7 +139,7 @@ $(document).ready(function() {
             }),
             $('#delete').click(function(){
                 var d = calEvent.id;
-                var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d;
+                var deleteurl = '/api/task/'+d;
                 $.ajax({
                     url: deleteurl,
                     type: 'DELETE',
@@ -163,7 +161,7 @@ $(document).ready(function() {
             };
             var w = JSON.stringify(taskupdate);
             var d = calEvent.id;
-            var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
+            var updateurl = '/api/task/'+d+'/'+w;
             $.ajax({
                 url: updateurl,
                 type: 'put',
@@ -180,7 +178,7 @@ $(document).ready(function() {
             };
             var w = JSON.stringify(taskupdate);
             var d = event.id;
-            var updateurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/task/'+d+'/'+w;
+            var updateurl = '/api/task/'+d+'/'+w;
             $.ajax({
                 url: updateurl,
                 type: 'put',

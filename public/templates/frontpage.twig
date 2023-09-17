@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Manage tasks web application">
         <meta name="author" content="Peter Petropoulos">
-		<link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
+		<link rel="icon" href="../public/images/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
@@ -29,15 +29,17 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li>
-                                <a href="tasks" class="btn {{ memberClass }}"><span class="glyphicon glyphicon-calendar"></span> Tasks</a>
-                            </li>
-                            <li>
-                                <a href="projects" class="btn {{ memberClass }}"><span class="glyphicon glyphicon-object-align-left"></span> Projects</a>
-                            </li>
-                            <li>
-                                <a href="users" class="btn {{ adminClass }}"><span class="glyphicon glyphicon-th-list"></span> Users</a>
-                            </li>
+                            {% if hasIdentity %}
+                                <li>
+                                    <a href="tasks" class="btn {{ memberClass }}"><span class="glyphicon glyphicon-calendar"></span> Tasks</a>
+                                </li>
+                                <li>
+                                    <a href="projects" class="btn {{ memberClass }}"><span class="glyphicon glyphicon-object-align-left"></span> Projects</a>
+                                </li>
+                                <li>
+                                    <a href="users" class="btn {{ adminClass }}"><span class="glyphicon glyphicon-th-list"></span> Users</a>
+                                </li>
+                            {% endif %}
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             {% if hasIdentity %}
@@ -60,17 +62,17 @@
                             <p>Taskmanager App &copy; <script>document.write(new Date().getFullYear())</script></p>
                             <p>
                                 Featured snippets are 
-                                <a target="_blank" href="http://getbootstrap.com/"><img src="//getbootstrap.com/favicon.ico" width="15px"> Bootstrap</a>
+                                <a target="_blank" href="//getbootstrap.com/"><img src="//getbootstrap.com/favicon.ico" width="15px"> Bootstrap</a>
                                 |
-                                <a target="_blank" href="https://jquery.com/"><img src="//jquery.com/favicon.ico" width="15px"> Jquery</a>
+                                <a target="_blank" href="//jquery.com/"><img src="//jquery.com/favicon.ico" width="15px"> Jquery</a>
                                 |
-                                <a target="_blank" href="http://www.slimframework.com/"><img src="//www.slimframework.com/assets/images/favicon.png" width="15px"> Slim Framework</a>
+                                <a target="_blank" href="//www.slimframework.com/"><img src="//www.slimframework.com/assets/images/favicon.png" width="15px"> Slim Framework</a>
                                 |
-                                <a target="_blank" href="http://fullcalendar.io/">FullCalendar</a>
+                                <a target="_blank" href="//fullcalendar.io/">FullCalendar</a>
                                 |
-                                <a target="_blank" href="https://vitalets.github.io/x-editable/">X-editable</a>
+                                <a target="_blank" href="//vitalets.github.io/x-editable/">X-editable</a>
                                 |
-                                <a target="_blank" href="http://twig.sensiolabs.org/"><img src="//twig.sensiolabs.org//favicon.ico" width="15px"> Twig</a>
+                                <a target="_blank" href="//twig.symfony.com/"><img src="//twig.symfony.com//favicon.ico" width="15px"> Twig</a>
                             </p>
                         </div>
                     </div>

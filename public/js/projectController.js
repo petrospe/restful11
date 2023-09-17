@@ -1,8 +1,8 @@
 // Path initialization
 var pathArray = window.location.pathname.split( '/' );
 // Project card
-var cardurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/projects';
-var imagepathurl = pathArray[0]+'/'+pathArray[1]+'/public/images/projects/';
+var cardurl = '/api/projects';
+var imagepathurl = '/public/images/projects/';
 // Modal Windows
 $(document).ready(function() {
     // Edit Project modal
@@ -168,7 +168,7 @@ $(document).on('click','.edit-project',function(){
     getImages();
     var x = $(this).closest('a').attr('id');
     $.ajax({
-        url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+x,
+        url: '/api/project/'+x,
         type: 'GET',
         dataType: "json",
         success: function (response){
@@ -211,7 +211,7 @@ $(document).on('click','.edit-project',function(){
                 }),
                 // Delete Project
                 $('#delete').click(function(){
-                    var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project/'+x;
+                    var deleteurl = '/api/project/'+x;
                     $.ajax({
                         url: deleteurl,
                         type: 'DELETE',
@@ -242,7 +242,7 @@ $(document).on('click','#projectadd',function(){
 // Get images
 function getImages(){
     $.ajax({
-        url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/images',
+        url: '/api/images',
         type: 'GET',
         dataType: "json",
         success : function (data){
@@ -266,7 +266,7 @@ function projectInsertClose(){
     $('#projectdialogadd').modal('hide');
 }
 function projectInsertSubmit() {
-    var inserturl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/project';
+    var inserturl = '/api/project';
     var dt = getDatetime();
     if($('#title-add').val()==''){
         alert('Title field is required');

@@ -1,9 +1,7 @@
-// Path initialization
-var pathArray = window.location.pathname.split( '/' );
 // Delete user
 function DeleteUser(d) {
     //confirm('Delete '+d+' ?')
-    var deleteurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/user/'+d;
+    var deleteurl = '/api/user/'+d;
     $.ajax({
         url: deleteurl,
         type: 'DELETE',
@@ -15,7 +13,7 @@ function DeleteUser(d) {
 	});
 }
 // Users grid
-var gridurl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/users';
+var gridurl = '/api/users';
 $.ajax({
     url: gridurl,
     type: 'GET',
@@ -52,7 +50,7 @@ $.ajax({
             p[y] = z;
             var w = JSON.stringify(p);
             $.ajax({
-                url: pathArray[0]+'/'+pathArray[1]+'/api/index.php/user/'+x+'/'+w,
+                url: '/api/user/'+x+'/'+w,
                 type: 'put'
             });
         });
@@ -169,7 +167,7 @@ $(document).ready(function() {
     );
 });
 function UserInsertSubmit() {
-    var inserturl = pathArray[0]+'/'+pathArray[1]+'/api/index.php/user';
+    var inserturl = '/api/user';
     if ($('#insstatus').prop('checked')){
         var status= '1';
     }else{
@@ -196,7 +194,6 @@ function UserInsertSubmit() {
             type: 'POST',
             async: false,
             data: userinsert,
-            datatype: 'json',
             success:function(msg){
                 if(msg){
                     alert('User '+$('#insusername').val()+' was added');
@@ -204,6 +201,9 @@ function UserInsertSubmit() {
                 }else{
                     alert('User cannot added');
                 }
+            },
+            error: function(e) {
+                console.log(e);
             }
         });
     }
